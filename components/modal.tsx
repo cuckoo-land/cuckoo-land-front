@@ -13,6 +13,7 @@ export default function CommonModal({ children, isOpen, setIsOpen, width = '450p
   return (
     <Modal
       isOpen={isOpen}
+      ariaHideApp={false}
       onRequestClose={() => setIsOpen((props) => !props)}
       style={{
         overlay: {
@@ -30,9 +31,15 @@ export default function CommonModal({ children, isOpen, setIsOpen, width = '450p
           transform: 'translate(-50%, -50%)',
           width: `${width}`,
           height: `${height}`,
+          backgroundColor: '#F6E3BD',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderRadius: '20px',
         },
       }}>
-      {children}
+      <div className="relative w-full">{children}</div>
     </Modal>
   );
 }

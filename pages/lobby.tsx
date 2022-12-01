@@ -1,13 +1,27 @@
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import Button from '@components/button';
 import GameRoomContainer from '@components/lobby/gameRoom';
 import IconButton from '@components/iconButton';
 import CommonModal from '@components/modal';
 import ProfileCard from '@components/lobby/profileCard';
-import { useState } from 'react';
+
+interface ICreateRoomRequest {
+  title: string;
+  password?: string;
+  type: string;
+  people: number;
+}
 
 export default function Lobby() {
   const [isOpenCreateRoom, setIsOpenCreateRoom] = useState(false);
   const [isOpenInviteCode, setIsOpenInviteCode] = useState(false);
+  const { register, handleSubmit, reset } = useForm<ICreateRoomRequest>();
+  const onValid = (data: ICreateRoomRequest) => {
+    console.log(data);
+    setIsOpenCreateRoom((props) => !props);
+    reset();
+  };
 
   return (
     <>
@@ -95,9 +109,9 @@ export default function Lobby() {
             {/** 방목록 * */}
             <div
               className="flex flex-col h-[600px]
-           justify-start space-y-3 overflow-y-scroll mt-4 scrollbar-hide pb-80">
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(() => (
-                <GameRoomContainer />
+           justify-start space-y-3 overflow-y-scroll mt-4 scrollbar-hide pb-60">
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((data) => (
+                <GameRoomContainer key={data} />
               ))}
             </div>
           </div>
@@ -106,7 +120,62 @@ export default function Lobby() {
 
       {isOpenCreateRoom ? (
         <CommonModal isOpen={isOpenCreateRoom} setIsOpen={setIsOpenCreateRoom}>
-          <div>CreateRoom</div>
+          <div className="text-gray-900 w-full flex justify-center items-center absolute -top-8 border-gray-400 border-solid border-b-[1px] pb-2">
+            게임 생성
+          </div>
+          <form className="space-y-2 pt-2" onSubmit={handleSubmit(onValid)}>
+            <div className="w-full flex justify-between items-center">
+              <div className="text-sm whitespace-nowrap w-1/4">방 제목</div>
+              <input
+                className="bg-white text-right appearance-none w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                type="text"
+                {...register('title', { required: true })}
+              />
+            </div>
+            <div className="w-full flex justify-between items-center">
+              <div className="text-sm whitespace-nowrap w-1/4">비밀번호</div>
+              <input
+                className="bg-white text-right appearance-none w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                type="password"
+                placeholder="비밀번호 없음"
+                {...register('password', { required: true })}
+              />
+            </div>
+            <div className="w-full flex justify-between items-center">
+              <div className="text-sm whitespace-nowrap w-1/4">게임유형</div>
+              <select
+                defaultValue="Find The Cuckoo"
+                className="bg-white text-right w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                {...register('type', { required: true })}>
+                <option value="Find The Cuckoo">Find The Cuckoo</option>
+              </select>
+            </div>
+            <div className="w-full flex justify-between items-center">
+              <div className="text-sm whitespace-nowrap">인원 수</div>
+              <select
+                defaultValue={2}
+                className="bg-white text-right w-1/6 px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500"
+                {...register('people', { required: true })}>
+                <option value={2}>2명</option>
+                <option value={3}>3명</option>
+                <option value={4}>4명</option>
+                <option value={5}>5명</option>
+                <option value={6}>6명</option>
+                <option value={7}>7명</option>
+                <option value={8}>8명</option>
+                <option value={9}>9명</option>
+                <option value={10}>10명</option>
+              </select>
+            </div>
+            <div className="w-full flex justify-between items-center">
+              <div>
+                <Button text="취소" onClick={() => setIsOpenCreateRoom((props) => !props)} />
+              </div>
+              <div>
+                <Button text="제출" type="submit" />
+              </div>
+            </div>
+          </form>
         </CommonModal>
       ) : null}
       {isOpenInviteCode ? (
