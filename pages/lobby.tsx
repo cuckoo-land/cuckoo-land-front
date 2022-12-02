@@ -1,79 +1,59 @@
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import Button from '@components/button';
 import GameRoomContainer from '@components/lobby/gameRoom';
 import IconButton from '@components/iconButton';
 import CommonModal from '@components/modal';
 import ProfileCard from '@components/lobby/profileCard';
-import { useState } from 'react';
+import Header from '@components/header';
+import Input from '@components/input';
+import Select from '@components/select';
+
+interface ICreateRoomRequest {
+  title: string;
+  password?: string;
+  type: string;
+  people: number;
+}
+
+const SELECT_PEOPLE = Array.from({ length: 9 }, (_, k) => ({ value: k + 2, text: `${k + 2}명` }));
+const GAME_TYPE = [{ value: 'Find the Cuckoo', text: 'Find the Cuckoo' }];
 
 export default function Lobby() {
   const [isOpenCreateRoom, setIsOpenCreateRoom] = useState(false);
   const [isOpenInviteCode, setIsOpenInviteCode] = useState(false);
+  const [inviteCode, setInviteCode] = useState('');
+  const { register, handleSubmit, reset } = useForm<ICreateRoomRequest>();
+  const onValid = (data: ICreateRoomRequest) => {
+    console.log(data);
+    setIsOpenCreateRoom((props) => !props);
+    reset();
+  };
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInviteCode(e.target.value);
+  };
+  const onClick = () => {
+    console.log(inviteCode);
+    setIsOpenInviteCode((props) => !props);
+  };
 
   return (
     <>
       <div className="w-full min-w-md mx-auto h-screen overflow-hidden flex justify-center bg-[#F6E3BD]">
         {/** 헤더 * */}
-        <div className=" bg-[#F6E3BD] w-5/6 h-14 mx-auto justify-between text-lg py-5 font-medium fixed text-gray-800 border-b top-0 flex items-center">
-          <div className="bg-slate-300 w-32 h-10">LOGO</div>
-          <div className="flex justify-around items-center space-x-4">
-            <IconButton
-              onClick={() => {
-                console.log('hi');
-              }}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-6 h-6">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 01-.982-3.172M9.497 14.25a7.454 7.454 0 00.981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 007.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M7.73 9.728a6.726 6.726 0 002.748 1.35m8.272-6.842V4.5c0 2.108-.966 3.99-2.48 5.228m2.48-5.492a46.32 46.32 0 012.916.52 6.003 6.003 0 01-5.395 4.972m0 0a6.726 6.726 0 01-2.749 1.35m0 0a6.772 6.772 0 01-3.044 0"
-                />
-              </svg>
-            </IconButton>
-            <IconButton onClick={() => console.log('hi')}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-6 h-6">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z"
-                />
-              </svg>
-            </IconButton>
-            <IconButton onClick={() => console.log('hi')}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-6 h-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-              </svg>
-            </IconButton>
-          </div>
-        </div>
+        <Header />
 
         {/** 메인화면 * */}
-        <div className="w-full flex justify-center flex-col h-fit mt-20">
+        <div className="w-full flex justify-center flex-col h-fit mt-20 relative">
           <div>
             <ProfileCard />
             {/** 버튼모음 * */}
             <div className="w-full flex justify-center space-x-3">
-              <div className="w-32 h-10 ">
+              <div className="w-1/3">
                 <Button text="방 만들기" onClick={() => setIsOpenCreateRoom((props) => !props)} />
               </div>
-              <div className="w-32 h-10">
-                <Button text="참여코드 검색" onClick={() => setIsOpenInviteCode((props) => !props)} />
+              <div className="w-1/3">
+                <Button text="참여코드로 입장" onClick={() => setIsOpenInviteCode((props) => !props)} />
               </div>
               <IconButton onClick={() => console.log('hi')}>
                 <svg
@@ -94,10 +74,10 @@ export default function Lobby() {
 
             {/** 방목록 * */}
             <div
-              className="flex flex-col h-[600px]
-           justify-start space-y-3 overflow-y-scroll mt-4 scrollbar-hide pb-80">
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(() => (
-                <GameRoomContainer />
+              className="flex flex-col max-h-[65vh] pb-16
+           justify-start space-y-3 overflow-y-scroll mt-8 scrollbar-hide">
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((data) => (
+                <GameRoomContainer key={data} />
               ))}
             </div>
           </div>
@@ -106,12 +86,75 @@ export default function Lobby() {
 
       {isOpenCreateRoom ? (
         <CommonModal isOpen={isOpenCreateRoom} setIsOpen={setIsOpenCreateRoom}>
-          <div>CreateRoom</div>
+          <div className="text-gray-900 w-full flex justify-center items-center absolute -top-6">
+            <div className="font-bold border-solid">게임 생성</div>
+          </div>
+          <form className="space-y-2 pt-2" onSubmit={handleSubmit(onValid)}>
+            <div className="w-full flex justify-between items-center">
+              <div className="text-sm whitespace-nowrap w-1/4">방 제목</div>
+              <Input type="text" register={register('title', { required: true })} />
+            </div>
+            <div className="w-full flex justify-between items-center">
+              <div className="text-sm whitespace-nowrap w-1/4">비밀번호</div>
+              <Input type="password" placeholder="비밀번호 없음" register={register('password', { required: true })} />
+            </div>
+            <div className="w-full flex justify-between items-center">
+              <div className="text-sm whitespace-nowrap w-1/4">게임유형</div>
+              <div className="w-full">
+                <Select
+                  defaultValue={GAME_TYPE[0].value}
+                  options={GAME_TYPE}
+                  register={register('type', { required: true })}
+                />
+              </div>
+            </div>
+            <div className="w-full flex justify-between items-center">
+              <div className="text-sm whitespace-nowrap">인원 수</div>
+              <div className="w-1/6">
+                <Select
+                  defaultValue={SELECT_PEOPLE[0].value}
+                  options={SELECT_PEOPLE}
+                  register={register('people', { required: true })}
+                />
+              </div>
+            </div>
+            <div className="w-full flex justify-between items-center">
+              <div>
+                <Button text="취소" onClick={() => setIsOpenCreateRoom((props) => !props)} />
+              </div>
+              <div>
+                <Button text="제출" type="submit" />
+              </div>
+            </div>
+          </form>
         </CommonModal>
       ) : null}
       {isOpenInviteCode ? (
         <CommonModal isOpen={isOpenInviteCode} setIsOpen={setIsOpenInviteCode}>
-          <div>InviteCode</div>
+          <div className="flex justify-between items-center flex-col h-60">
+            <div className="text-gray-900 w-full flex justify-center items-center">
+              <div className="font-bold border-solid">참여코드 입력</div>
+            </div>
+            <div className="flex justify-center items-center w-full">
+              <div className="w-2/3">
+                <input
+                  value={inviteCode}
+                  onChange={onChange}
+                  type="text"
+                  placeholder="전달받은 코드를 입력해주세요."
+                  className='bg-white text-center appearance-none text-sm tracking-tighter w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500"'
+                />
+              </div>
+            </div>
+            <div className="w-full flex justify-between items-center">
+              <div>
+                <Button text="취소" onClick={() => setIsOpenInviteCode((props) => !props)} />
+              </div>
+              <div>
+                <Button text="제출" onClick={onClick} type="submit" />
+              </div>
+            </div>
+          </div>
         </CommonModal>
       ) : null}
     </>
