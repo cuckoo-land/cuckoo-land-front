@@ -143,7 +143,7 @@ export default function Login() {
           title="게스트 로그인"
           content={
             <input
-              className="w-80 h-10 px-2 mb-4 border-2 border-[#573623] bg-white rounded-md"
+              className="w-80 h-10 px-2 mb-2 border-2 border-[#573623] bg-white rounded-md"
               type="text"
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
