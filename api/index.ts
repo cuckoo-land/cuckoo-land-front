@@ -5,6 +5,6 @@ export const authAPI = {
   memberidCheck: (data: any) => api.post('/join/idcheck', data),
   nicknameCheck: (data: any) => api.post('/join/nickcheck', data),
   login: (data: any) => api.post('/login', data),
-  guestLogin: (data: any) => api.get('/guest/login', data),
+  guestLogin: (data: any) => api.post('/guest/login', data),
   guestLogout: () => api.delete('/guest/out'),
 };
