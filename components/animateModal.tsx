@@ -3,12 +3,10 @@ import { Dispatch, SetStateAction } from 'react';
 interface IModalProps {
   children: React.ReactNode;
   isOpen: boolean;
-  width?: string;
-  height?: string;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function AnimateModal({ children, isOpen, setIsOpen, width = '450px', height = '300px' }: IModalProps) {
+export default function AnimateModal({ children, isOpen, setIsOpen }: IModalProps) {
   const onClick = () => {
     setIsOpen((props) => !props);
   };
