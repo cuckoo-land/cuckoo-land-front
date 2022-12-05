@@ -4,7 +4,15 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        woody: "url('../public/image/modal_background.png')",
+        woody_modal: "url('../public/image/modal_woody.png')",
+        woody_banner: "url('../public/image/banner_woody.png')",
+        woody_button: "url('../public/image/button_woody.png)",
+        white_banner: "url('../public/image/banner_white.png')",
+        white_modal: "url('../public/image/modal_white.png')",
+        white_button: "url('../public/image/button_white.png)",
+        dark_banner: "url('../public/image/banner_dark.png')",
+        dark_modal: "url('../public/image/modal_dark.png')",
+        dark_button: "url('../public/image/button_dark.png)",
       },
       keyframes: {
         modal_appear: {

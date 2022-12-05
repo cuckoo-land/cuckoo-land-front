@@ -1,9 +1,13 @@
+import Image from 'next/image';
+import Logo from '../public/image/cuckoo_land_logo.png';
 import IconButton from './iconButton';
 
 export default function Header() {
   return (
-    <div className=" bg-[#F6E3BD] w-5/6 h-14 mx-auto justify-between text-lg py-5 font-medium fixed text-gray-800 border-b top-0 flex items-center">
-      <div className="bg-slate-300 w-1/3 h-10">LOGO</div>
+    <div className=" w-5/6 h-14 mx-auto justify-between text-lg py-5 font-medium fixed text-gray-800 border-b top-0 flex items-center">
+      <div className="pt-3 w-1/2">
+        <Image src={Logo} width={250} height={150} />
+      </div>
       <div className="flex justify-around items-center space-x-2">
         <IconButton
           onClick={() => {

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import Button from '@components/button';
-import GameRoomContainer from '@components/lobby/gameRoom';
+import Button from '@components/button_test';
+import GameRoomContainer from '@components/lobby/gameRoom_test';
 import IconButton from '@components/iconButton';
-import CommonModal from '@components/modal';
-import ProfileCard from '@components/lobby/profileCard';
+import ProfileCard from '@components/lobby/profileCard_test';
 import Header from '@components/header';
 import Input from '@components/input';
 import Select from '@components/select';
+import AnimateModal from '@components/animateModal';
 
 interface ICreateRoomRequest {
   title: string;
@@ -39,24 +39,24 @@ export default function Lobby() {
 
   return (
     <>
-      <div className="w-full min-w-md mx-auto h-screen overflow-hidden flex justify-center bg-[#F6E3BD]">
+      <div className="w-full min-w-md mx-auto max-h-screen overflow-hidden flex justify-center bg-[url('/intro-bgi.gif')] bg-cover">
         {/** 헤더 * */}
         <Header />
 
         {/** 메인화면 * */}
         <div className="w-full flex justify-center flex-col h-fit mt-20 relative">
-          <div>
+          <div className="flex flex-col justify-center items-center">
             <ProfileCard />
             {/** 버튼모음 * */}
-            <div className="w-full flex justify-center space-x-3">
+            <div className="max-w-80 flex justify-center space-x-3">
               <div className="w-1/6">
                 <Button text="방 만들기" onClick={() => setIsOpenCreateRoom((props) => !props)} />
               </div>
               <div className="w-1/4">
-                <Button text="참여코드로 입장" onClick={() => setIsOpenInviteCode((props) => !props)} />
+                <Button text="참여코드 입력" onClick={() => setIsOpenInviteCode((props) => !props)} />
               </div>
-              <div className="w-1/3">
-                <Button text="대기중인 방만 보기" />
+              <div className="w-1/4">
+                <Button text="대기중인 방" />
               </div>
               <IconButton onClick={() => console.log('hi')}>
                 <svg
@@ -77,7 +77,7 @@ export default function Lobby() {
 
             {/** 방목록 * */}
             <div
-              className="flex flex-col max-h-[65vh] pb-16
+              className="w-full flex flex-col max-h-[65vh] pb-16
            justify-start space-y-3 overflow-y-scroll mt-8 scrollbar-hide">
               {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((data) => (
                 <GameRoomContainer key={data} />
@@ -88,20 +88,20 @@ export default function Lobby() {
       </div>
 
       {isOpenCreateRoom ? (
-        <CommonModal width="500px" isOpen={isOpenCreateRoom} setIsOpen={setIsOpenCreateRoom}>
+        <AnimateModal width="500px" isOpen={isOpenCreateRoom} setIsOpen={setIsOpenCreateRoom}>
           <div className="flex flex-col justify-between">
             <div className="text-gray-900 w-full flex justify-center items-center">
-              <div className="text-2xl font-bold text-[#573623] mb-2 tracking-wider">게임 생성</div>
+              <div className="text-3xl font-bold text-white mb-2 tracking-wider">게임 생성</div>
             </div>
             <form className="space-y-2 pt-2" onSubmit={handleSubmit(onValid)}>
               <div className="w-full flex justify-between items-center">
-                <div className="text-sm font-bold whitespace-nowrap w-1/4">방 제목</div>
+                <div className="text-white text-lg font-bold whitespace-nowrap w-1/4">방 제목</div>
                 <div className="w-2/3">
                   <Input type="text" register={register('title', { required: true })} />
                 </div>
               </div>
               <div className="w-full flex justify-between items-center">
-                <div className="text-sm font-bold whitespace-nowrap w-1/4">비밀번호</div>
+                <div className="text-white text-lg font-bold whitespace-nowrap w-1/4">비밀번호</div>
                 <div className="w-2/3">
                   <Input
                     type="password"
@@ -111,7 +111,7 @@ export default function Lobby() {
                 </div>
               </div>
               <div className="w-full flex justify-between items-center">
-                <div className="text-sm font-bold whitespace-nowrap w-1/4">게임유형</div>
+                <div className="text-white text-lg font-bold whitespace-nowrap w-1/4">게임유형</div>
                 <div className="w-2/3">
                   <Select
                     defaultValue={GAME_TYPE[0].value}
@@ -121,7 +121,7 @@ export default function Lobby() {
                 </div>
               </div>
               <div className="w-full flex justify-between items-center">
-                <div className="text-sm font-bold whitespace-nowrap">인원 수</div>
+                <div className="text-white text-lg font-bold whitespace-nowrap">인원 수</div>
                 <div className="w-1/4">
                   <Select
                     defaultValue={SELECT_PEOPLE[0].value}
@@ -140,13 +140,13 @@ export default function Lobby() {
               </div>
             </form>
           </div>
-        </CommonModal>
+        </AnimateModal>
       ) : null}
       {isOpenInviteCode ? (
-        <CommonModal isOpen={isOpenInviteCode} setIsOpen={setIsOpenInviteCode}>
+        <AnimateModal isOpen={isOpenInviteCode} setIsOpen={setIsOpenInviteCode}>
           <div className="flex justify-between items-center flex-col h-60">
             <div className="text-gray-900 w-full flex justify-center items-center">
-              <div className="text-2xl font-bold text-[#573623] mb-2 tracking-wider">참여코드 입력</div>
+              <div className="text-3xl font-bold text-white mb-5 tracking-wider">참여코드 입력</div>
             </div>
             <div className="flex justify-center items-center w-full">
               <div className="w-2/3">
@@ -159,7 +159,7 @@ export default function Lobby() {
                 />
               </div>
             </div>
-            <div className="w-full flex justify-between items-center">
+            <div className="w-5/6 flex justify-between items-center">
               <div>
                 <Button text="취소" onClick={() => setIsOpenInviteCode((props) => !props)} />
               </div>
@@ -168,7 +168,7 @@ export default function Lobby() {
               </div>
             </div>
           </div>
-        </CommonModal>
+        </AnimateModal>
       ) : null}
     </>
   );

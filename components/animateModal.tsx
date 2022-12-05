@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction } from 'react';
-import backgroundImage from 'public/image/modal_background.png';
 
 interface IModalProps {
   children: React.ReactNode;
@@ -10,14 +9,20 @@ interface IModalProps {
 }
 
 export default function AnimateModal({ children, isOpen, setIsOpen, width = '450px', height = '300px' }: IModalProps) {
+  const onClick = () => {
+    setIsOpen((props) => !props);
+  };
   return (
     <>
       {isOpen ? (
         <div
-          //   onClick={() => setIsOpen((props) => !props)}
+          onClick={onClick}
+          role="presentation"
           className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
           <div
-            className={`bg-woody bg-no-repeat bg-cover bg-center p-5 w-[450px]
+            onClick={(e) => e.stopPropagation()}
+            role="presentation"
+            className={`bg-woody_modal bg-no-repeat bg-cover bg-center p-5 w-[480px] h-[350px]
               animate-modal_appear`}>
             {children}
           </div>

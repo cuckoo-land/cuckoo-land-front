@@ -10,7 +10,7 @@ export default function IconButton({ children, onClick }: IIconButtonProps) {
     <button
       type="button"
       onClick={onClick}
-      className="w-10 h-10 bg-[#573623] hover:bg-[#80563e] rounded-md shadow-xl flex justify-center items-center text-white">
+      className="w-10 h-10 bg-dark_banner bg-no-repeat bg-cover hover:scale-105 rounded-md shadow-xl flex justify-center items-center text-white">
       {children}
     </button>
   );
