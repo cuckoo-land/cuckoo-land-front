@@ -185,7 +185,7 @@ export default function Join() {
           ref={confirmPasswordRef}
           maxLength={32}
         />
-        <div className="w-80 h-10 px-2 text-base font-bold" ref={messageRef}>
+        <div className="h-10 px-2 text-base font-bold w-80" ref={messageRef}>
           {message}
         </div>
         <button
