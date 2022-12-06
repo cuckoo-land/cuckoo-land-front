@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import Image from 'next/image';
 import Button from '@components/button';
 import GameRoomContainer from '@components/lobby/gameRoom';
 import IconButton from '@components/iconButton';
@@ -49,7 +50,7 @@ export default function Lobby() {
             <ProfileCard />
             {/** 버튼모음 * */}
             <div className="max-w-80 flex justify-center space-x-3">
-              <div className="w-1/6">
+              <div className="w-1/5">
                 <Button text="방 만들기" onClick={() => setIsOpenCreateRoom((props) => !props)} />
               </div>
               <div className="w-1/4">
@@ -89,11 +90,11 @@ export default function Lobby() {
 
       {isOpenCreateRoom ? (
         <AnimateModal isOpen={isOpenCreateRoom} setIsOpen={setIsOpenCreateRoom}>
-          <div className="flex flex-col justify-between">
+          <div className="flex flex-col justify-around h-full">
             <div className="text-gray-900 w-full flex justify-center items-center">
-              <div className="text-3xl font-bold text-white mb-2 tracking-wider">게임 생성</div>
+              <div className="text-3xl font-bold text-white tracking-wider">게임 생성</div>
             </div>
-            <form className="space-y-2 pt-2" onSubmit={handleSubmit(onValid)}>
+            <form className="space-y-2" onSubmit={handleSubmit(onValid)}>
               <div className="w-full flex justify-between items-center">
                 <div className="text-white text-lg font-bold whitespace-nowrap w-1/4">방 제목</div>
                 <div className="w-2/3">
@@ -144,10 +145,11 @@ export default function Lobby() {
       ) : null}
       {isOpenInviteCode ? (
         <AnimateModal isOpen={isOpenInviteCode} setIsOpen={setIsOpenInviteCode}>
-          <div className="flex justify-between items-center flex-col h-60">
+          <div className="flex justify-between items-center flex-col h-full">
             <div className="text-gray-900 w-full flex justify-center items-center">
-              <div className="text-3xl font-bold text-white mb-5 tracking-wider">참여코드 입력</div>
+              <div className="text-3xl font-bold text-white mb-3 tracking-wider">참여코드 입력</div>
             </div>
+            <Image src="/image/cuckoo_character.png" height={130} width={130} />
             <div className="flex justify-center items-center w-full">
               <div className="w-2/3">
                 <input
@@ -164,7 +166,7 @@ export default function Lobby() {
                 <Button text="취소" onClick={() => setIsOpenInviteCode((props) => !props)} />
               </div>
               <div>
-                <Button text="제출" onClick={onClick} type="submit" />
+                <Button text="생성" onClick={onClick} type="submit" />
               </div>
             </div>
           </div>

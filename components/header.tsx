@@ -1,16 +1,14 @@
-import Image from 'next/image';
-import Logo from '../public/image/cuckoo_land_logo.png';
+import { useRouter } from 'next/router';
 import IconButton from './iconButton';
+import Logo from './logo';
 
 export default function Header() {
+  const router = useRouter();
   return (
     <div className=" w-5/6 h-14 mx-auto justify-between text-lg py-5 font-medium fixed text-gray-800 border-b top-0 flex items-center">
-      <Image src={Logo} width={140} height={40} />
+      <Logo lang="ko" />
       <div className="flex justify-around items-center space-x-2">
-        <IconButton
-          onClick={() => {
-            console.log('hi');
-          }}>
+        <IconButton onClick={() => router.push('/rank')}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

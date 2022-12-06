@@ -14,14 +14,14 @@ export default function Button({ large = false, onClick, texture = 'white', text
       onClick={onClick}
       {...rest}
       className={cls(
-        'w-full tracking-tighter font-bold whitespace-nowrap flex justify-center items-center bg-cover bg-no-repeat hover:scale-105 text-[#33200d]  px-4 border border-transparent rounded-md shadow-sm focus:ring-2 focus:ring-offset-2 focus:ring-[#DC8A39] focus:outline-none',
+        'w-full tracking-tighter font-bold whitespace-nowrap flex justify-center items-center bg-cover bg-no-repeat hover:scale-105 px-4 border border-transparent rounded-md shadow-sm focus:ring-2 focus:ring-offset-2 focus:ring-[#DC8A39] focus:outline-none',
         large ? 'py-3 text-base' : 'py-2 text-sm ',
         texture === 'white'
-          ? 'bg-white_banner'
+          ? 'bg-white_banner text-black'
           : texture === 'woody'
-          ? 'bg-woody_banner'
+          ? 'bg-woody_banner text-white'
           : texture === 'dark'
-          ? 'bg-dark_banner'
+          ? 'bg-dark_banner text-white'
           : ''
       )}>
       {text}

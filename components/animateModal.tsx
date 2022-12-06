@@ -1,12 +1,14 @@
+import { cls } from '@utils/cls';
 import { Dispatch, SetStateAction } from 'react';
 
 interface IModalProps {
   children: React.ReactNode;
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
+  texture?: 'woody' | 'dark' | 'white';
 }
 
-export default function AnimateModal({ children, isOpen, setIsOpen }: IModalProps) {
+export default function AnimateModal({ children, isOpen, setIsOpen, texture = 'woody' }: IModalProps) {
   const onClick = () => {
     setIsOpen((props) => !props);
   };
@@ -20,8 +22,17 @@ export default function AnimateModal({ children, isOpen, setIsOpen }: IModalProp
           <div
             onClick={(e) => e.stopPropagation()}
             role="presentation"
-            className={`bg-woody_modal bg-no-repeat bg-cover bg-center p-5 w-[480px] h-[350px]
-              animate-modal_appear`}>
+            className={cls(
+              `bg-no-repeat bg-cover bg-center p-5 w-[480px] h-[350px]
+              animate-modal_appear`,
+              texture === 'woody'
+                ? 'bg-woody_modal'
+                : texture === 'dark'
+                ? 'bg-dark_modal'
+                : texture === 'white'
+                ? 'bg-white_modal'
+                : ''
+            )}>
             {children}
           </div>
         </div>

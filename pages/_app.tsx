@@ -9,11 +9,11 @@ export default function App({ Component, pageProps }: AppProps) {
   const { pathname } = router;
   const isStartPage = pathname === '/login' || pathname === '/join';
 
-  // useEffect(() => {
-  //   if (!localStorage.getItem('accessToken')) {
-  //     router.push('/login');
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (!localStorage.getItem('accessToken')) {
+      router.push('/login');
+    }
+  }, []);
 
   return (
     <>
