@@ -7,21 +7,22 @@ import { useEffect } from 'react';
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const { pathname } = router;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const isStartPage = pathname === '/login' || pathname === '/join';
 
-  useEffect(() => {
-    if (!localStorage.getItem('accessToken')) {
-      router.push('/login');
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!localStorage.getItem('accessToken')) {
+  //     router.push('/login');
+  //   }
+  // }, []);
 
   return (
     <>
-      {isStartPage && (
+      {/* {isStartPage && (
         <audio autoPlay loop src="/intro-bgm.mp3">
           <track default kind="captions" />
         </audio>
-      )}
+      )} */}
       <GlobalStyle />
       <Component {...pageProps} />
     </>
