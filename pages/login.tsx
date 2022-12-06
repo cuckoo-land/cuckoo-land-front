@@ -26,7 +26,7 @@ export default function Login() {
   const passwordRegExp = /^(?=.*[a-z])(?=.*[0-9])[0-9A-Za-z$&+,:;=?@#|'<>.^*()%!-]{8,32}$/;
 
   const signinData = {
-    id,
+    memberId: id,
     password,
   };
 
@@ -58,7 +58,9 @@ export default function Login() {
       .login(signinData)
       .then((response) => {
         if (response.status === 200) {
-          localStorage.setItem('token', response.data.access_token);
+          localStorage.setItem('roleType', response.data.roleType);
+          response.headers.authorization && localStorage.setItem('accessToken', response.headers.authorization);
+          response.headers.refreshtoken && localStorage.setItem('refreshToken', response.headers.refreshtoken);
           router.push('/lobby');
         }
       })
@@ -79,10 +81,14 @@ export default function Login() {
 
   const handleGuestLogin = () => {
     authAPI
-      .guestLogin(nickname)
+      .guestLogin({ nickname })
       .then((response) => {
         if (response.status === 200) {
-          localStorage.setItem('token', response.data.access_token);
+          console.log(response);
+          localStorage.setItem('nickname', response.data.nickname);
+          localStorage.setItem('roleType', response.data.roleType);
+          response.headers.authorization && localStorage.setItem('accessToken', response.headers.authorization);
+          response.headers.refreshtoken && localStorage.setItem('refreshToken', response.headers.refreshtoken);
           router.push('/lobby');
         }
       })
