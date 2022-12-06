@@ -105,12 +105,13 @@ export default function Login() {
 
   return (
     <div className="bg-[url('/intro-bgi.gif')] flex flex-col items-center justify-center w-full h-screen">
+      <img src="/cuckoo_land_logo.png" alt="logo" className="w-80" />
       <form
-        className="bg-[#F6E3BD] border-2 rounded-3xl p-5 opacity-90 max-w-sm flex flex-col items-center justify-center"
+        className="bg-[#F6E3BD] border-2 rounded-3xl p-5 opacity-90 max-w-sm flex flex-col items-center justify-center shadow-lg"
         onSubmit={(e) => handleLogin(e)}>
         <label className="text-2xl font-bold text-[#573623] mb-2">아이디</label>
         <input
-          className="w-80 h-10 px-2 mb-4 border-2 border-[#573623] bg-white rounded-md"
+          className="w-80 h-10 px-2 mb-4 border-2 border-[#573623] bg-white rounded-md shadow-md"
           type="text"
           value={id}
           onChange={(e) => setId(e.target.value)}
@@ -119,7 +120,7 @@ export default function Login() {
         />
         <label className="text-2xl font-bold text-[#573623] mb-2">비밀번호</label>
         <input
-          className="w-80 h-10 px-2 mb-4 border-2 border-[#573623] bg-white rounded-md"
+          className="w-80 h-10 px-2 mb-4 border-2 border-[#573623] bg-white rounded-md shadow-md"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -127,19 +128,19 @@ export default function Login() {
           required
         />
         <button
-          className="w-80 h-10 px-2 border-2 border-[#573623] bg-[#9D6C3D] text-xl font-bold text-white rounded-md"
+          className="w-80 h-10 px-2 border-2 border-[#573623] bg-[#9D6C3D] text-xl font-bold text-white rounded-md shadow-md"
           type="submit">
           로그인
         </button>
       </form>
       <button
-        className="w-80 h-10 px-2 mt-4 border-2 border-[#573623] bg-[#DC8A39] text-xl font-bold text-white rounded-md"
+        className="w-80 h-10 px-2 mt-4 border-2 border-[#573623] bg-[#DC8A39] text-xl font-bold text-white rounded-md shadow-md"
         type="button"
         onClick={handleJoinPage}>
         회원가입
       </button>
       <button
-        className="w-80 h-10 px-2 mt-4 border-2 border-[#573623] bg-[#DC8A39] text-xl font-bold text-white rounded-md"
+        className="w-80 h-10 px-2 mt-4 border-2 border-[#573623] bg-[#DC8A39] text-xl font-bold text-white rounded-md shadow-md"
         type="button"
         onClick={() => setShowModal(true)}>
         게스트 로그인
