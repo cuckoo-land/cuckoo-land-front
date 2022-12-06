@@ -25,14 +25,54 @@ export default function Join() {
     }
   }, []);
 
+  useEffect(() => {
+    if (!id.length) setMessage('⚠️ 4자 이상의 아이디를 입력해주세요.');
+    if (id.length >= 4) {
+      authAPI
+        .memberidCheck({ memberId: id })
+        .then((response) => {
+          if (response.status === 200) {
+            setMessage('✅ 사용 가능한 아이디입니다.');
+          }
+        })
+        .catch(({ response }) => {
+          if (!response.data.msg) {
+            setMessage('⚠️ 아이디 형식이 올바르지 않습니다.');
+          } else {
+            setMessage('❌ 이미 사용중인 아이디입니다.');
+          }
+        });
+    }
+  }, [id]);
+
+  useEffect(() => {
+    if (!nickname.length) setMessage('⚠️ 2자 이상의 닉네임을 입력해주세요.');
+    if (nickname.length >= 2) {
+      authAPI
+        .nicknameCheck({ nickname })
+        .then((response) => {
+          if (response.status === 200) {
+            setMessage('✅ 사용 가능한 닉네임입니다.');
+          }
+        })
+        .catch(({ response }) => {
+          if (!response.data.msg) {
+            setMessage('⚠️ 닉네임 형식이 올바르지 않습니다.');
+          } else {
+            setMessage('❌ 이미 사용중인 닉네임입니다.');
+          }
+        });
+    }
+  }, [nickname]);
+
   const joinData = {
-    id,
+    memberId: id,
     nickname,
     password,
   };
 
   const idRegExp = /^[a-zA-Z0-9]{4,16}$/;
-  const nicknameRegExp = /^[가-힣a-zA-Z0-9]{2,8}$/;
+  const nicknameRegExp = /^[가-힣a-zA-Z0-9]{4,16}$/;
   const passwordRegExp = /^(?=.*[a-z])(?=.*[0-9])[0-9A-Za-z$&+,:;=?@#|'<>.^*()%!-]{8,32}$/;
 
   const handleToast = (message: string) => {
@@ -44,26 +84,26 @@ export default function Join() {
 
   const handleValidation = () => {
     if (!idRegExp.test(id)) {
-      handleToast('아이디를 확인해주세요!');
-      setMessage('아이디는 4~16자의 영문, 숫자만 사용 가능합니다.');
+      handleToast('아이디는 4~16자의 영문, 숫자만 사용 가능합니다.');
+      setMessage('⚠️ 아이디 형식이 올바르지 않습니다.');
       idRef.current?.focus();
       return false;
     }
     if (!nicknameRegExp.test(nickname)) {
-      handleToast('닉네임을 확인해주세요!');
-      setMessage('닉네임은 2~8자의 한글, 영문, 숫자만 사용 가능합니다.');
+      handleToast('닉네임은 2~8자의 한글, 영문, 숫자만 사용 가능합니다.');
+      setMessage('⚠️ 닉네임 형식이 올바르지 않습니다.');
       nicknameRef.current?.focus();
       return false;
     }
     if (!passwordRegExp.test(password)) {
-      handleToast('비밀번호를 확인해주세요!');
-      setMessage('비밀번호는 8~32자의 영문, 숫자를 조합해야 합니다.');
+      handleToast('비밀번호는 8~32자의 영문, 숫자를 조합해야 합니다.');
+      setMessage('⚠️ 비밀번호 형식이 올바르지 않습니다.');
       passwordRef.current?.focus();
       return false;
     }
     if (password !== confirmPassword) {
       handleToast('비밀번호가 일치하지 않습니다!');
-      setMessage('비밀번호가 일치하지 않습니다.');
+      setMessage('❌ 비밀번호가 일치하지 않습니다.');
       confirmPasswordRef.current?.focus();
       return false;
     }
@@ -114,7 +154,7 @@ export default function Join() {
           ref={idRef}
           onChange={(e) => setId(e.target.value)}
           placeholder="4~16자의 영문, 숫자를 입력해주세요."
-          required
+          maxLength={16}
         />
         <label className="text-2xl font-bold text-[#573623] mb-2">닉네임</label>
         <input
@@ -124,7 +164,7 @@ export default function Join() {
           ref={nicknameRef}
           onChange={(e) => setNickname(e.target.value)}
           placeholder="2~8자의 한글, 영문, 숫자를 입력해주세요."
-          required
+          maxLength={8}
         />
         <label className="text-2xl font-bold text-[#573623] mb-2">비밀번호</label>
         <input
@@ -134,18 +174,18 @@ export default function Join() {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="8~32자의 영문, 숫자를 조합해주세요."
           ref={passwordRef}
-          required
+          maxLength={32}
         />
         <input
-          className="w-80 h-10 px-2 mb-6 border-2 border-[#573623] bg-white rounded-md"
+          className="w-80 h-10 px-2 mb-5 border-2 border-[#573623] bg-white rounded-md"
           type="password"
           value={confirmPassword}
           onChange={(e) => setconfirmPassword(e.target.value)}
           placeholder="비밀번호 확인"
           ref={confirmPasswordRef}
-          required
+          maxLength={32}
         />
-        <div className="w-80 h-10 px-2 text-sm font-bold" ref={messageRef}>
+        <div className="w-80 h-10 px-2 text-base font-bold" ref={messageRef}>
           {message}
         </div>
         <button
