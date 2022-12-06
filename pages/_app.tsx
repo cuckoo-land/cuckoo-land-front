@@ -20,11 +20,11 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Menubar />
-      {/* {isStartPage && (
+      {isStartPage && (
         <audio autoPlay loop src="/intro-bgm.mp3">
           <track default kind="captions" />
         </audio>
-      )} */}
+      )}
       <GlobalStyle />
       <Component {...pageProps} />
     </>
