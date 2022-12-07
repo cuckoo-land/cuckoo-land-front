@@ -1,11 +1,12 @@
 import Button from '@components/button';
 import Header from '@components/header';
 import IconButton from '@components/iconButton';
+import RankCard from '@components/rank/rankCard';
 
 export default function Rank() {
   return (
     <div className="w-full min-w-md mx-auto max-h-screen overflow-hidden flex justify-center bg-[url('/intro-bgi.gif')] bg-cover">
-      <Header />
+      <Header isRankPage />
       <div className="w-full flex justify-center flex-col h-fit mt-20 relative">
         <div className="flex flex-col justify-center items-center">
           <div className="max-w-80 flex justify-center space-x-3">
@@ -34,10 +35,12 @@ export default function Rank() {
             </label>
           </div>
         </div>
-        <div className="w-full flex justify-center mt-10">
-          <div className="w-1/2 flex justify-center">
-            <div className="w-1/2" />
-          </div>
+        <div
+          className="w-full flex flex-col max-h-[100vh] pb-16
+           justify-start space-y-3 overflow-y-scroll mt-8 scrollbar-hide">
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((data, index) => (
+            <RankCard key={data} rankingNumber={index + 1} />
+          ))}
         </div>
       </div>
     </div>
