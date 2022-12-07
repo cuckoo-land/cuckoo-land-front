@@ -3,6 +3,7 @@ import Layout from '@components/layout';
 import Button from '@components/button';
 import Chat from '@components/gameroom/chat';
 import CommonModal from '@components/modal';
+import Header from '@components/header';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/router';
 
@@ -43,7 +44,6 @@ function GameRoom() {
   return (
     <Layout title="Gameroom" seoTitle="Gameroom">
       <ToastContainer />
-      <div className="h-20 font-bold text-center">header</div>
       <Member />
       <div className="flex justify-between mx-10 my-2">
         <div>

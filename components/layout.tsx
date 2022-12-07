@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { cls } from '@utils/cls';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import Header from '@components/header';
 
 interface LayoutProps {
   title?: string;
@@ -22,8 +23,10 @@ export default function Layout({ title, canGoBack, hasTabBar, children, seoTitle
       <Head>
         <title>{seoTitle} | 쿠쿠랜드</title>
       </Head>
-      <div className="flex items-center justify-center">
-        <div className="w-[640px] h-screen bg-[#F6E3BD]">{children}</div>
+
+      <div className="w-full flex items-center justify-center bg-[url('/intro-bgi.gif')] bg-cover">
+        <Header />
+        <div className="w-[640px] h-screen">{children}</div>
       </div>
     </div>
   );
