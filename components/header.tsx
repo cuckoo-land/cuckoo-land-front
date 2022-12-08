@@ -5,9 +5,9 @@ import Logo from './logo';
 export default function Header() {
   const router = useRouter();
   return (
-    <div className=" w-5/6 h-14 mx-auto justify-between text-lg py-5 font-medium fixed text-gray-800 border-b top-0 flex items-center">
+    <div className="fixed top-0 flex items-center justify-between w-5/6 py-5 mx-auto text-lg font-medium text-gray-800 border-b  h-14">
       <Logo lang="ko" />
-      <div className="flex justify-around items-center space-x-2">
+      <div className="flex items-center justify-around space-x-2">
         <IconButton onClick={() => router.push('/rank')}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
