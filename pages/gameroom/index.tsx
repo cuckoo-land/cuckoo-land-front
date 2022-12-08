@@ -5,6 +5,7 @@ import Chat from '@components/gameroom/chat';
 import CommonModal from '@components/modal';
 import Header from '@components/header';
 import Swal from 'sweetalert2';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 import { toast, ToastContainer } from 'react-toastify';
@@ -48,15 +49,15 @@ function GameRoom() {
       <div className="flex justify-between mx-10 my-2">
         <div>
           <div className="w-20">
-            <Button text="공유하기" texture="woody" onClick={handleShareGameRoom} />
+            <Button text="공유하기" texture="white" onClick={handleShareGameRoom} />
           </div>
         </div>
         <div className="">
           <div className="w-20">
-            <Button text="옵션" texture="woody" onClick={handleUpdateSetting} />
+            <Button text="옵션" texture="white" onClick={handleUpdateSetting} />
           </div>
           <div className="w-20">
-            <Button text="나가기" texture="woody" onClick={handleQuitGameRoom} />
+            <Button text="나가기" texture="white" onClick={handleQuitGameRoom} />
           </div>
         </div>
       </div>
