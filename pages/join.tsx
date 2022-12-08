@@ -137,7 +137,7 @@ export default function Join() {
     <div className="bg-[url('/intro-bgi.gif')] flex flex-col items-center justify-center w-full h-screen">
       <img src="/cuckoo_land_logo_en.png" alt="logo" className="w-80" />
       <form
-        className="bg-[#F6E3BD] border-2 rounded-3xl p-5 opacity-90 max-w-sm flex flex-col items-center justify-center shadow-lg"
+        className="bg-white_modal bg-cover bg-center border-2 rounded-3xl p-5 opacity-90 max-w-sm flex flex-col items-center justify-center shadow-lg"
         onSubmit={(e) => handleJoin(e)}>
         <label className="text-2xl font-bold text-[#573623] mb-2">아이디</label>
         <input
@@ -182,13 +182,13 @@ export default function Join() {
           {message}
         </div>
         <button
-          className="w-80 h-10 px-2 border-2 border-[#573623] bg-[#9D6C3D] text-xl font-bold text-white rounded-md shadow-md"
+          className="bg-woody_banner bg-[#9D6C3D] w-80 h-10 px-2 text-xl font-bold text-white rounded-md shadow-md"
           type="submit">
           가입 완료
         </button>
       </form>
       <button
-        className="w-80 h-10 px-2 mt-4 border-2 border-[#573623] bg-[#DC8A39] text-xl font-bold text-white rounded-md shadow-md"
+        className="bg-dark_banner bg-[#DC8A39] w-80 h-10 px-2 mt-4 text-xl font-bold text-white rounded-md shadow-md"
         type="button"
         onClick={() => router.push('/login')}>
         로그인 페이지로 이동
