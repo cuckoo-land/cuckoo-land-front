@@ -64,6 +64,9 @@ export function Devicesettingmodal() {
       }
       //   if (!deviceId) {
       getCamera();
+      myStream?.getAudioTracks().forEach((track) => {
+        track.enabled = false;
+      });
       //   }
     } catch (error) {
       // eslint-disable-next-line no-console
@@ -72,7 +75,7 @@ export function Devicesettingmodal() {
   }
   const handleMute = () => {
     // eslint-disable-next-line no-return-assign
-    myStream.getAudioTracks().forEach((track) => (track.enabled = !track.enabled));
+    myStream?.getAudioTracks().forEach((track) => (track.enabled = !track.enabled));
     if (!muted && audioRef.current) {
       audioRef.current.innerText = 'Unmute';
       muted = true;
@@ -83,7 +86,7 @@ export function Devicesettingmodal() {
   };
   const handleCamera = () => {
     // eslint-disable-next-line no-return-assign
-    myStream.getVideoTracks().forEach((track) => (track.enabled = !track.enabled));
+    myStream?.getVideoTracks().forEach((track) => (track.enabled = !track.enabled));
     if (!carmeraonoff && videoRef.current) {
       videoRef.current.innerText = 'Caemra On';
       carmeraonoff = true;

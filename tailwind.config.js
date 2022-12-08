@@ -13,6 +13,9 @@ module.exports = {
         dark_banner: "url('../public/image/banner_dark.png')",
         dark_modal: "url('../public/image/modal_dark.png')",
         dark_button: "url('../public/image/button_dark.png)",
+        rounded_white: "url('../public/image/rounded_button_background_white.png)",
+        rounded_dark: "url('../public/image/rounded_button_dark.png)",
+        rounded_woody: "url('../public/image/rounded_button_woody.png)",
       },
       keyframes: {
         modal_appear: {
@@ -32,9 +35,14 @@ module.exports = {
             transform: 'translateY(0) rotate(0deg)',
           },
         },
+        menu_apper: {
+          '0%': { right: '-33.333333%' },
+          '100%': { right: 0 },
+        },
       },
       animation: {
         modal_appear: 'modal_appear 1s ease-in',
+        menu_apper: 'menu_apper 0.3s ease-in-out',
       },
     },
   },
