@@ -9,4 +9,12 @@ export const authAPI = {
   guestLogout: () => api.delete('/guest/out'),
 };
 
-export const gameroomAPI = {};
+export const MenuAPI = {
+  getUserInfo: () => api.post(``),
+};
+
+export const gameroomAPI = {
+  getGameRoomInfo: (id) => api.get(`/rooms/${id}`),
+  editGameRoomInfo: (id) => api.put(`/rooms/${id}`),
+  putChangeHost: () => api.put('/rooms/changehost'),
+};
