@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router';
 import { FormEvent, useEffect, useRef, useState } from 'react';
 
-import { authAPI } from 'api';
-import { Toast } from '@utils/toast';
 import Swal from 'sweetalert2';
+import { handleToast } from '@utils/toast';
+import { authAPI } from 'api';
 
 export default function Join() {
   const router = useRouter();
@@ -75,34 +75,27 @@ export default function Join() {
   const nicknameRegExp = /^[가-힣a-zA-Z0-9]{4,16}$/;
   const passwordRegExp = /^(?=.*[a-z])(?=.*[0-9])[0-9A-Za-z$&+,:;=?@#|'<>.^*()%!-]{8,32}$/;
 
-  const handleToast = (message: string) => {
-    Toast.fire({
-      icon: 'error',
-      title: message,
-    });
-  };
-
   const handleValidation = () => {
     if (!idRegExp.test(id)) {
-      handleToast('아이디는 4~16자의 영문, 숫자만 사용 가능합니다.');
+      handleToast('info', '아이디는 4~16자의 영문, 숫자만 사용 가능합니다.');
       setMessage('⚠️ 아이디 형식이 올바르지 않습니다.');
       idRef.current?.focus();
       return false;
     }
     if (!nicknameRegExp.test(nickname)) {
-      handleToast('닉네임은 2~8자의 한글, 영문, 숫자만 사용 가능합니다.');
+      handleToast('info', '닉네임은 2~8자의 한글, 영문, 숫자만 사용 가능합니다.');
       setMessage('⚠️ 닉네임 형식이 올바르지 않습니다.');
       nicknameRef.current?.focus();
       return false;
     }
     if (!passwordRegExp.test(password)) {
-      handleToast('비밀번호는 8~32자의 영문, 숫자를 조합해야 합니다.');
+      handleToast('info', '비밀번호는 8~32자의 영문, 숫자를 조합해야 합니다.');
       setMessage('⚠️ 비밀번호 형식이 올바르지 않습니다.');
       passwordRef.current?.focus();
       return false;
     }
     if (password !== confirmPassword) {
-      handleToast('비밀번호가 일치하지 않습니다!');
+      handleToast('error', '비밀번호가 일치하지 않습니다!');
       setMessage('❌ 비밀번호가 일치하지 않습니다.');
       confirmPasswordRef.current?.focus();
       return false;
@@ -116,7 +109,6 @@ export default function Join() {
     authAPI
       .join(joinData)
       .then((response) => {
-        console.log(response);
         if (response.status === 201) {
           Swal.fire({
             icon: 'success',

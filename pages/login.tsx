@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router';
 import { FormEvent, useEffect, useRef, useState } from 'react';
 
-import { authAPI } from 'api';
-import { Toast } from '@utils/toast';
 import Swal from 'sweetalert2';
+import { handleToast } from '@utils/toast';
+import { authAPI } from 'api';
 import GuestModal from '@components/guestModal';
 
 export default function Login() {
@@ -30,21 +30,14 @@ export default function Login() {
     password,
   };
 
-  const handleToast = (message: string) => {
-    Toast.fire({
-      icon: 'error',
-      title: message,
-    });
-  };
-
   const handleValidation = () => {
     if (!idRegExp.test(id)) {
-      handleToast('아이디를 확인해주세요!');
+      handleToast('error', '아이디를 확인해주세요!');
       idRef.current?.focus();
       return false;
     }
     if (!passwordRegExp.test(password)) {
-      handleToast('비밀번호가 올바르지 않습니다.');
+      handleToast('error', '비밀번호가 올바르지 않습니다.');
       passwordRef.current?.focus();
       return false;
     }
