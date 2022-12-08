@@ -6,16 +6,18 @@ module.exports = {
       backgroundImage: {
         woody_modal: "url('../public/image/modal_woody.png')",
         woody_banner: "url('../public/image/banner_woody.png')",
-        woody_button: "url('../public/image/button_woody.png)",
+        woody_button: "url('../public/image/button_woody.png')",
+        woody_rounded_button: "url('../public/image/rounded_button_woody.png')",
         white_banner: "url('../public/image/banner_white.png')",
         white_modal: "url('../public/image/modal_white.png')",
-        white_button: "url('../public/image/button_white.png)",
+        white_button: "url('../public/image/button_white.png')",
         dark_banner: "url('../public/image/banner_dark.png')",
         dark_modal: "url('../public/image/modal_dark.png')",
-        dark_button: "url('../public/image/button_dark.png)",
         rounded_white: "url('../public/image/rounded_button_background_white.png)",
         rounded_dark: "url('../public/image/rounded_button_dark.png)",
         rounded_woody: "url('../public/image/rounded_button_woody.png)",
+        dark_button: "url('../public/image/button_dark.png')",
+        cuckoo_character: "url('../public/image/cuckoo_character.png')",
       },
       keyframes: {
         modal_appear: {

@@ -45,11 +45,11 @@ export default function Lobby() {
         <Header />
 
         {/** 메인화면 * */}
-        <div className="w-full flex justify-center flex-col h-fit mt-20 relative">
-          <div className="flex flex-col justify-center items-center">
+        <div className="relative flex flex-col justify-center w-full mt-20 h-fit">
+          <div className="flex flex-col items-center justify-center">
             <ProfileCard />
             {/** 버튼모음 * */}
-            <div className="max-w-80 flex justify-center space-x-3">
+            <div className="flex justify-center space-x-3 max-w-80">
               <div className="w-1/5">
                 <Button text="방 만들기" onClick={() => setIsOpenCreateRoom((props) => !props)} />
               </div>
@@ -93,18 +93,18 @@ export default function Lobby() {
       {isOpenCreateRoom ? (
         <AnimateModal isOpen={isOpenCreateRoom} setIsOpen={setIsOpenCreateRoom}>
           <div className="flex flex-col justify-around h-full">
-            <div className="text-gray-900 w-full flex justify-center items-center">
-              <div className="text-3xl font-bold text-white tracking-wider">게임 생성</div>
+            <div className="flex items-center justify-center w-full text-gray-900">
+              <div className="text-3xl font-bold tracking-wider text-white">게임 생성</div>
             </div>
             <form className="space-y-2" onSubmit={handleSubmit(onValid)}>
-              <div className="w-full flex justify-between items-center">
-                <div className="text-white text-lg font-bold whitespace-nowrap w-1/4">방 제목</div>
+              <div className="flex items-center justify-between w-full">
+                <div className="w-1/4 text-lg font-bold text-white whitespace-nowrap">방 제목</div>
                 <div className="w-2/3">
                   <Input type="text" register={register('title', { required: true })} />
                 </div>
               </div>
-              <div className="w-full flex justify-between items-center">
-                <div className="text-white text-lg font-bold whitespace-nowrap w-1/4">비밀번호</div>
+              <div className="flex items-center justify-between w-full">
+                <div className="w-1/4 text-lg font-bold text-white whitespace-nowrap">비밀번호</div>
                 <div className="w-2/3">
                   <Input
                     type="password"
@@ -113,8 +113,8 @@ export default function Lobby() {
                   />
                 </div>
               </div>
-              <div className="w-full flex justify-between items-center">
-                <div className="text-white text-lg font-bold whitespace-nowrap w-1/4">게임유형</div>
+              <div className="flex items-center justify-between w-full">
+                <div className="w-1/4 text-lg font-bold text-white whitespace-nowrap">게임유형</div>
                 <div className="w-2/3">
                   <Select
                     defaultValue={GAME_TYPE[0].value}
@@ -123,8 +123,8 @@ export default function Lobby() {
                   />
                 </div>
               </div>
-              <div className="w-full flex justify-between items-center">
-                <div className="text-white text-lg font-bold whitespace-nowrap">인원 수</div>
+              <div className="flex items-center justify-between w-full">
+                <div className="text-lg font-bold text-white whitespace-nowrap">인원 수</div>
                 <div className="w-1/4">
                   <Select
                     defaultValue={SELECT_PEOPLE[0].value}
@@ -133,7 +133,7 @@ export default function Lobby() {
                   />
                 </div>
               </div>
-              <div className="w-full flex justify-between items-center">
+              <div className="flex items-center justify-between w-full">
                 <div>
                   <Button text="취소" onClick={() => setIsOpenCreateRoom((props) => !props)} />
                 </div>
@@ -147,23 +147,23 @@ export default function Lobby() {
       ) : null}
       {isOpenInviteCode ? (
         <AnimateModal isOpen={isOpenInviteCode} setIsOpen={setIsOpenInviteCode}>
-          <div className="flex justify-between items-center flex-col h-full">
-            <div className="text-gray-900 w-full flex justify-center items-center">
-              <div className="text-3xl font-bold text-white mb-3 tracking-wider">참여코드 입력</div>
+          <div className="flex flex-col items-center justify-between h-full">
+            <div className="flex items-center justify-center w-full text-gray-900">
+              <div className="mb-3 text-3xl font-bold tracking-wider text-white">참여코드 입력</div>
             </div>
             <Image src="/image/cuckoo_character.png" height={130} width={130} />
-            <div className="flex justify-center items-center w-full">
+            <div className="flex items-center justify-center w-full">
               <div className="w-2/3">
                 <input
                   value={inviteCode}
                   onChange={onChange}
                   type="text"
                   placeholder="전달받은 코드를 입력해주세요."
-                  className='bg-white text-center appearance-none text-sm tracking-tighter w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-orange-500 focus:border-orange-500"'
+                  className='w-full px-3 py-2 text-sm tracking-tighter text-center placeholder-gray-400 bg-white border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-orange-500 focus:border-orange-500"'
                 />
               </div>
             </div>
-            <div className="w-5/6 flex justify-between items-center">
+            <div className="flex items-center justify-between w-5/6">
               <div>
                 <Button text="취소" onClick={() => setIsOpenInviteCode((props) => !props)} />
               </div>
