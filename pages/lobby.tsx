@@ -1,20 +1,39 @@
 import React, { useState } from 'react';
+import { useQuery } from 'react-query/react';
 import { useForm } from 'react-hook-form';
 import Image from 'next/image';
 import Button from '@components/button';
 import GameRoomContainer from '@components/lobby/gameRoom';
 import IconButton from '@components/iconButton';
 import ProfileCard from '@components/lobby/profileCard';
-import Header from '@components/header';
 import Input from '@components/input';
 import Select from '@components/select';
 import AnimateModal from '@components/animateModal';
+import Layout from '@components/layout';
+import { api } from 'api/core/instance';
 
 interface ICreateRoomRequest {
   title: string;
   password?: string;
+  type: number;
+  maximum: number;
+  visibility: boolean;
+}
+
+interface ICreateRoomRequestAddUser extends ICreateRoomRequest {
+  hostId: string;
+}
+
+export interface IGameRoomProps {
+  code: string;
+  hostId: string;
+  id: number;
+  maximum: number;
+  numOfPeople: number;
+  state: string;
+  title: string;
   type: string;
-  people: number;
+  visibility: boolean;
 }
 
 const SELECT_PEOPLE = Array.from({ length: 9 }, (_, k) => ({ value: k + 2, text: `${k + 2}명` }));
@@ -25,25 +44,33 @@ export default function Lobby() {
   const [isOpenInviteCode, setIsOpenInviteCode] = useState(false);
   const [inviteCode, setInviteCode] = useState('');
   const { register, handleSubmit, reset } = useForm<ICreateRoomRequest>();
-  const onValid = (data: ICreateRoomRequest) => {
-    console.log(data);
+
+  const { isLoading, data: gameRooms, refetch } = useQuery('gamerooms', () => api.get('/rooms'));
+  const onValid = async (data: ICreateRoomRequest) => {
+    const dataAddHostId: ICreateRoomRequestAddUser = {
+      ...data,
+      maximum: Number(data.maximum),
+      type: 0,
+      hostId: 'bird1',
+    };
+
+    await api.post('/rooms', dataAddHostId);
+
     setIsOpenCreateRoom((props) => !props);
     reset();
   };
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInviteCode(e.target.value);
   };
-  const onClick = () => {
-    console.log(inviteCode);
+  const onClick = async () => {
+    const response = await api.get(`/rooms/code/${inviteCode}`);
+    console.log(response);
     setIsOpenInviteCode((props) => !props);
   };
 
   return (
     <>
-      <div className="w-full min-w-md mx-auto max-h-screen overflow-hidden flex justify-center bg-[url('/intro-bgi.gif')] bg-cover">
-        {/** 헤더 * */}
-        <Header />
-
+      <Layout seoTitle="게임 로비">
         {/** 메인화면 * */}
         <div className="relative flex flex-col justify-center w-full mt-20 h-fit">
           <div className="flex flex-col items-center justify-center">
@@ -60,7 +87,7 @@ export default function Lobby() {
                 <Button text="대기중인 방" />
               </div>
               <label htmlFor="my-drawer-4">
-                <IconButton onClick={() => console.log('hi')}>
+                <IconButton onClick={() => refetch()}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -82,13 +109,13 @@ export default function Lobby() {
             <div
               className="w-full flex flex-col max-h-[65vh] pb-16
            justify-start space-y-3 overflow-y-scroll mt-8 scrollbar-hide">
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((data) => (
-                <GameRoomContainer key={data} />
+              {gameRooms?.data.map((gameRoom: IGameRoomProps) => (
+                <GameRoomContainer key={gameRoom.id} {...gameRoom} />
               ))}
             </div>
           </div>
         </div>
-      </div>
+      </Layout>
 
       {isOpenCreateRoom ? (
         <AnimateModal isOpen={isOpenCreateRoom} setIsOpen={setIsOpenCreateRoom}>
@@ -129,8 +156,20 @@ export default function Lobby() {
                   <Select
                     defaultValue={SELECT_PEOPLE[0].value}
                     options={SELECT_PEOPLE}
-                    register={register('people', { required: true })}
+                    register={register('maximum', { required: true })}
                   />
+                </div>
+              </div>
+              <div className="flex items-center justify-between w-full">
+                <div className="text-lg font-bold text-white whitespace-nowrap">비공개 여부</div>
+                <div>
+                  <input
+                    {...register('visibility')}
+                    id="checked-checkbox"
+                    type="checkbox"
+                    className=" w-8 h-8 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500"
+                  />
+                  <label htmlFor="checked-checkbox" className="ml-2 text-sm font-medium text-gray-900 " />
                 </div>
               </div>
               <div className="flex items-center justify-between w-full">

@@ -8,3 +8,9 @@ export const authAPI = {
   guestLogin: (data: any) => api.post('/guest/login', data),
   guestLogout: () => api.delete('/guest/out'),
 };
+
+export const MenuAPI = {
+  getUserInfo: () => api.post(``),
+};
+
+export const gameroomAPI = {};

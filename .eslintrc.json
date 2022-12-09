@@ -61,7 +61,8 @@
     "react/jsx-no-useless-fragment": ["off"], // 무의미한(자식 요소가 1개 또는 fragment가 html의 자식인 경우) fragment 사용 가능
     "react/react-in-jsx-scope": "off", // jsx를 사용하기 위해 반드시 React를 import 하지 않아도 됨
     "react/require-default-props": "off", // defaultProps를 지정하지 않아도 됨
-    "react/prop-types": ["off"] // propTypes 설정하지 않아도 됨
+    "react/prop-types": ["off"], // propTypes 설정하지 않아도 됨
+    "arrow-body-style": ["error", "as-needed"]
   },
   "settings": {
     "import/resolver": {
