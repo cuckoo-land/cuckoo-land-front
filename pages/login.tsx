@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router';
 import { FormEvent, useEffect, useRef, useState } from 'react';
 
-import { authAPI } from 'api';
-import { Toast } from '@utils/toast';
 import Swal from 'sweetalert2';
+import { handleToast } from '@utils/toast';
+import { authAPI } from 'api';
 import GuestModal from '@components/guestModal';
 
 export default function Login() {
@@ -30,21 +30,14 @@ export default function Login() {
     password,
   };
 
-  const handleToast = (message: string) => {
-    Toast.fire({
-      icon: 'error',
-      title: message,
-    });
-  };
-
   const handleValidation = () => {
     if (!idRegExp.test(id)) {
-      handleToast('아이디를 확인해주세요!');
+      handleToast('error', '아이디를 확인해주세요!');
       idRef.current?.focus();
       return false;
     }
     if (!passwordRegExp.test(password)) {
-      handleToast('비밀번호가 올바르지 않습니다.');
+      handleToast('error', '비밀번호가 올바르지 않습니다.');
       passwordRef.current?.focus();
       return false;
     }
@@ -104,7 +97,7 @@ export default function Login() {
     <div className="bg-[url('/intro-bgi.gif')] flex flex-col items-center justify-center w-full h-screen">
       <img src="/cuckoo_land_logo.png" alt="logo" className="w-80" />
       <form
-        className="bg-[#F6E3BD] border-2 rounded-3xl p-5 opacity-90 max-w-sm flex flex-col items-center justify-center shadow-lg"
+        className="bg-white_modal bg-cover bg-center w-96 p-5 opacity-90 flex flex-col items-center justify-center shadow-lg"
         onSubmit={(e) => handleLogin(e)}>
         <label className="text-2xl font-bold text-[#573623] mb-2">아이디</label>
         <input
@@ -125,19 +118,19 @@ export default function Login() {
           required
         />
         <button
-          className="w-80 h-10 px-2 border-2 border-[#573623] bg-[#9D6C3D] text-xl font-bold text-white rounded-md shadow-md"
+          className="bg-woody_banner bg-[#9D6C3D] w-80 h-10 px-2 text-xl font-bold text-white rounded-md shadow-md"
           type="submit">
           로그인
         </button>
       </form>
       <button
-        className="w-80 h-10 px-2 mt-4 border-2 border-[#573623] bg-[#DC8A39] text-xl font-bold text-white rounded-md shadow-md"
+        className="bg-dark_banner bg-[#DC8A39] w-80 h-10 px-2 mt-4 text-xl font-bold text-white rounded-md shadow-md"
         type="button"
         onClick={handleJoinPage}>
         회원가입
       </button>
       <button
-        className="w-80 h-10 px-2 mt-4 border-2 border-[#573623] bg-[#DC8A39] text-xl font-bold text-white rounded-md shadow-md"
+        className="bg-dark_banner bg-[#DC8A39]  w-80 h-10 px-2 mt-4 text-xl font-bold text-white rounded-md shadow-md"
         type="button"
         onClick={() => setShowModal(true)}>
         게스트 로그인

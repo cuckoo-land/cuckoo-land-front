@@ -1,5 +1,12 @@
 import Swal from 'sweetalert2';
 
+export const handleToast = (icon: 'warning' | 'error' | 'success' | 'info' | 'question', title: string) => {
+  Toast.fire({
+    icon,
+    title,
+  });
+};
+
 export const Toast = Swal.mixin({
   toast: true,
   position: 'top-end',
