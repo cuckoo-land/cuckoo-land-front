@@ -133,11 +133,7 @@ export default function Lobby() {
               <div className="flex items-center justify-between w-full">
                 <div className="w-1/4 text-lg font-bold text-white whitespace-nowrap">비밀번호</div>
                 <div className="w-2/3">
-                  <Input
-                    type="password"
-                    placeholder="비밀번호 없음"
-                    register={register('password', { required: true })}
-                  />
+                  <Input type="password" placeholder="비밀번호 없음" register={register('password')} />
                 </div>
               </div>
               <div className="flex items-center justify-between w-full">
@@ -167,7 +163,7 @@ export default function Lobby() {
                     {...register('visibility')}
                     id="checked-checkbox"
                     type="checkbox"
-                    className=" w-8 h-8 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500"
+                    className="w-8 h-8 text-green-600 bg-gray-100 border-gray-300  focus:ring-green-500"
                   />
                   <label htmlFor="checked-checkbox" className="ml-2 text-sm font-medium text-gray-900 " />
                 </div>
