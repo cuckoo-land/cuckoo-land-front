@@ -24,7 +24,7 @@ export default function Layout({ title, canGoBack, hasTabBar, children, seoTitle
         <title>{seoTitle} | 쿠쿠랜드</title>
       </Head>
 
-      <div className="w-full flex items-center justify-center bg-[url('/intro-bgi.gif')] bg-cover">
+      <div className="w-full flex items-center overflow-hidden justify-center bg-[url('/intro-bgi.gif')] bg-cover">
         <Header />
         <div className="w-[640px] h-screen">{children}</div>
       </div>

@@ -5,10 +5,10 @@ import Button from '@components/button';
 import GameRoomContainer from '@components/lobby/gameRoom';
 import IconButton from '@components/iconButton';
 import ProfileCard from '@components/lobby/profileCard';
-import Header from '@components/header';
 import Input from '@components/input';
 import Select from '@components/select';
 import AnimateModal from '@components/animateModal';
+import Layout from '@components/layout';
 
 interface ICreateRoomRequest {
   title: string;
@@ -40,10 +40,7 @@ export default function Lobby() {
 
   return (
     <>
-      <div className="w-full min-w-md mx-auto max-h-screen overflow-hidden flex justify-center bg-[url('/intro-bgi.gif')] bg-cover">
-        {/** 헤더 * */}
-        <Header />
-
+      <Layout seoTitle="게임 로비">
         {/** 메인화면 * */}
         <div className="relative flex flex-col justify-center w-full mt-20 h-fit">
           <div className="flex flex-col items-center justify-center">
@@ -88,8 +85,7 @@ export default function Lobby() {
             </div>
           </div>
         </div>
-      </div>
-
+      </Layout>
       {isOpenCreateRoom ? (
         <AnimateModal isOpen={isOpenCreateRoom} setIsOpen={setIsOpenCreateRoom}>
           <div className="flex flex-col justify-around h-full">
