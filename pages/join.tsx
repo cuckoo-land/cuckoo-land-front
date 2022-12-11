@@ -1,9 +1,11 @@
 import { useRouter } from 'next/router';
 import { FormEvent, useEffect, useRef, useState } from 'react';
 
+import { authAPI } from 'api';
+
 import Swal from 'sweetalert2';
 import { handleToast } from '@utils/toast';
-import { authAPI } from 'api';
+import { idRegExp, nicknameRegExp, passwordRegExp } from '@utils/regExp';
 
 export default function Join() {
   const router = useRouter();
@@ -71,10 +73,6 @@ export default function Join() {
     password,
   };
 
-  const idRegExp = /^[a-zA-Z0-9]{4,16}$/;
-  const nicknameRegExp = /^[가-힣a-zA-Z0-9]{4,16}$/;
-  const passwordRegExp = /^(?=.*[a-z])(?=.*[0-9])[0-9A-Za-z$&+,:;=?@#|'<>.^*()%!-]{8,32}$/;
-
   const handleValidation = () => {
     if (!idRegExp.test(id)) {
       handleToast('info', '아이디는 4~16자의 영문, 숫자만 사용 가능합니다.');
@@ -83,7 +81,7 @@ export default function Join() {
       return false;
     }
     if (!nicknameRegExp.test(nickname)) {
-      handleToast('info', '닉네임은 2~8자의 한글, 영문, 숫자만 사용 가능합니다.');
+      handleToast('info', '닉네임은 2~16자의 한글, 영문, 숫자만 사용 가능합니다.');
       setMessage('⚠️ 닉네임 형식이 올바르지 않습니다.');
       nicknameRef.current?.focus();
       return false;
