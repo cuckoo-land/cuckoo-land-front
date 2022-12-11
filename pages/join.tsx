@@ -33,12 +33,12 @@ export default function Join() {
       authAPI
         .memberidCheck({ memberId: id })
         .then((response) => {
-          if (response.status === 200) {
+          if (response?.status === 200) {
             setMessage('✅ 사용 가능한 아이디입니다.');
           }
         })
         .catch(({ response }) => {
-          if (!response.data.msg) {
+          if (!response?.data.msg) {
             setMessage('⚠️ 아이디 형식이 올바르지 않습니다.');
           } else {
             setMessage('❌ 이미 사용중인 아이디입니다.');
@@ -107,7 +107,7 @@ export default function Join() {
     authAPI
       .join(joinData)
       .then((response) => {
-        if (response.status === 201) {
+        if (response.status === 201 || response.status === 200) {
           Swal.fire({
             icon: 'success',
             title: '회원가입 성공!',
@@ -119,15 +119,13 @@ export default function Join() {
         }
       })
       .catch(({ response }) => {
-        if (response.status === 400) {
-          Swal.fire({
-            icon: 'error',
-            title: '회원가입에 실패했습니다.',
-            text: '다시 시도해주세요.',
-            confirmButtonText: '확인',
-          });
-          console.dir(response);
-        }
+        Swal.fire({
+          icon: 'error',
+          title: '회원가입에 실패했습니다.',
+          text: '다시 시도해주세요.',
+          confirmButtonText: '확인',
+        });
+        console.dir(response);
       });
   };
 
@@ -135,7 +133,7 @@ export default function Join() {
     <div className="bg-[url('/intro-bgi.gif')] flex flex-col items-center justify-center w-full h-screen">
       <img src="/cuckoo_land_logo_en.png" alt="logo" className="w-80" />
       <form
-        className="bg-white_modal bg-cover bg-center border-2 rounded-3xl p-5 opacity-90 max-w-sm flex flex-col items-center justify-center shadow-lg"
+        className="bg-white_modal bg-cover bg-center border-2 rounded-3xl p-5 max-w-sm flex flex-col items-center justify-center shadow-lg"
         onSubmit={(e) => handleJoin(e)}>
         <label className="text-2xl font-bold text-[#573623] mb-2">아이디</label>
         <input

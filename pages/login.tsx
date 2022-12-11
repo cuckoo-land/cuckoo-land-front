@@ -99,7 +99,7 @@ export default function Login() {
     <div className="bg-[url('/intro-bgi.gif')] flex flex-col items-center justify-center w-full h-screen">
       <img src="/cuckoo_land_logo.png" alt="logo" className="w-80" />
       <form
-        className="bg-white_modal bg-cover bg-center w-96 p-5 opacity-90 flex flex-col items-center justify-center shadow-lg"
+        className="bg-white_modal bg-cover bg-center w-96 p-5 flex flex-col items-center justify-center shadow-lg"
         onSubmit={(e) => handleLogin(e)}>
         <label className="text-2xl font-bold text-[#573623] mb-2">아이디</label>
         <input
