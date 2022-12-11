@@ -1,5 +1,4 @@
 import Button from '@components/button';
-import Input from '@components/input';
 import React from 'react';
 
 function Chat() {
@@ -15,7 +14,7 @@ function Chat() {
             <div>
               <Button texture="white" text="전송" type="button" className="w-10 h-5 bg-gray-200" />
             </div>
-            <Input />
+            {/* <Input /> */}
           </div>
         </form>
       </div>

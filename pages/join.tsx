@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router';
 import { FormEvent, useEffect, useRef, useState } from 'react';
 
-import { authAPI } from 'api';
-import { Toast } from '@utils/toast';
 import Swal from 'sweetalert2';
+import { handleToast } from '@utils/toast';
+import { authAPI } from 'api';
 
 export default function Join() {
   const router = useRouter();
@@ -75,34 +75,27 @@ export default function Join() {
   const nicknameRegExp = /^[가-힣a-zA-Z0-9]{4,16}$/;
   const passwordRegExp = /^(?=.*[a-z])(?=.*[0-9])[0-9A-Za-z$&+,:;=?@#|'<>.^*()%!-]{8,32}$/;
 
-  const handleToast = (message: string) => {
-    Toast.fire({
-      icon: 'error',
-      title: message,
-    });
-  };
-
   const handleValidation = () => {
     if (!idRegExp.test(id)) {
-      handleToast('아이디는 4~16자의 영문, 숫자만 사용 가능합니다.');
+      handleToast('info', '아이디는 4~16자의 영문, 숫자만 사용 가능합니다.');
       setMessage('⚠️ 아이디 형식이 올바르지 않습니다.');
       idRef.current?.focus();
       return false;
     }
     if (!nicknameRegExp.test(nickname)) {
-      handleToast('닉네임은 2~8자의 한글, 영문, 숫자만 사용 가능합니다.');
+      handleToast('info', '닉네임은 2~8자의 한글, 영문, 숫자만 사용 가능합니다.');
       setMessage('⚠️ 닉네임 형식이 올바르지 않습니다.');
       nicknameRef.current?.focus();
       return false;
     }
     if (!passwordRegExp.test(password)) {
-      handleToast('비밀번호는 8~32자의 영문, 숫자를 조합해야 합니다.');
+      handleToast('info', '비밀번호는 8~32자의 영문, 숫자를 조합해야 합니다.');
       setMessage('⚠️ 비밀번호 형식이 올바르지 않습니다.');
       passwordRef.current?.focus();
       return false;
     }
     if (password !== confirmPassword) {
-      handleToast('비밀번호가 일치하지 않습니다!');
+      handleToast('error', '비밀번호가 일치하지 않습니다!');
       setMessage('❌ 비밀번호가 일치하지 않습니다.');
       confirmPasswordRef.current?.focus();
       return false;
@@ -116,7 +109,6 @@ export default function Join() {
     authAPI
       .join(joinData)
       .then((response) => {
-        console.log(response);
         if (response.status === 201) {
           Swal.fire({
             icon: 'success',
@@ -136,7 +128,7 @@ export default function Join() {
             text: '다시 시도해주세요.',
             confirmButtonText: '확인',
           });
-          console.dir(response);
+          // console.dir(response);
         }
       });
   };
@@ -145,7 +137,7 @@ export default function Join() {
     <div className="bg-[url('/intro-bgi.gif')] flex flex-col items-center justify-center w-full h-screen">
       <img src="/cuckoo_land_logo_en.png" alt="logo" className="w-80" />
       <form
-        className="bg-[#F6E3BD] border-2 rounded-3xl p-5 opacity-90 max-w-sm flex flex-col items-center justify-center shadow-lg"
+        className="bg-white_modal bg-cover bg-center border-2 rounded-3xl p-5 opacity-90 max-w-sm flex flex-col items-center justify-center shadow-lg"
         onSubmit={(e) => handleJoin(e)}>
         <label className="text-2xl font-bold text-[#573623] mb-2">아이디</label>
         <input
@@ -190,13 +182,13 @@ export default function Join() {
           {message}
         </div>
         <button
-          className="w-80 h-10 px-2 border-2 border-[#573623] bg-[#9D6C3D] text-xl font-bold text-white rounded-md shadow-md"
+          className="bg-woody_banner bg-[#9D6C3D] w-80 h-10 px-2 text-xl font-bold text-white rounded-md shadow-md"
           type="submit">
           가입 완료
         </button>
       </form>
       <button
-        className="w-80 h-10 px-2 mt-4 border-2 border-[#573623] bg-[#DC8A39] text-xl font-bold text-white rounded-md shadow-md"
+        className="bg-dark_banner bg-[#DC8A39] w-80 h-10 px-2 mt-4 text-xl font-bold text-white rounded-md shadow-md"
         type="button"
         onClick={() => router.push('/login')}>
         로그인 페이지로 이동

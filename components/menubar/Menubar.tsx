@@ -1,6 +1,4 @@
 import type {} from 'next/';
-import React, { useRef, useState } from 'react';
-// import { cls } from '@utils/cls';
 import { cls } from '@utils/cls';
 import { FriendModal } from './menumodal/Friendmodal';
 import { LogoutModal } from './menumodal/Logoutmodal';
