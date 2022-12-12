@@ -1,9 +1,17 @@
+import { useState } from 'react';
+
 import Button from '@components/button';
 import Header from '@components/header';
 import IconButton from '@components/iconButton';
-import RankCard from '@components/rank/rankCard';
+import RankList from '@components/rank/rankList';
 
 export default function Rank() {
+  const [gameType, setGameType] = useState('mafia');
+
+  const handleGameType = (type: string) => {
+    setGameType(type);
+  };
+
   return (
     <div className="w-full min-w-md mx-auto max-h-screen overflow-hidden flex justify-center bg-[url('/intro-bgi.gif')] bg-cover">
       <Header isRankPage />
@@ -11,10 +19,10 @@ export default function Rank() {
         <div className="flex flex-col justify-center items-center">
           <div className="max-w-80 flex justify-center space-x-3">
             <div className="w-1/2">
-              <Button text="마피아 게임" onClick={() => console.log('마피아 게임 랭킹 불러오기')} />
+              <Button text="마피아 게임" onClick={() => handleGameType('mafia')} />
             </div>
             <div className="w-1/2">
-              <Button text="다수결 게임" onClick={() => console.log('다수결 게임 랭킹 불러오기')} />
+              <Button text="다수결 게임" onClick={() => handleGameType('majority')} />
             </div>
             <label htmlFor="my-drawer-4">
               <IconButton onClick={() => console.log('새로고침 버튼 클릭')}>
@@ -35,13 +43,7 @@ export default function Rank() {
             </label>
           </div>
         </div>
-        <div
-          className="w-full flex flex-col max-h-[100vh] pb-16
-           justify-start space-y-3 overflow-y-scroll mt-8 scrollbar-hide">
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((data, index) => (
-            <RankCard key={data} rankingNumber={index + 1} />
-          ))}
-        </div>
+        <RankList gameType={gameType} />
       </div>
     </div>
   );

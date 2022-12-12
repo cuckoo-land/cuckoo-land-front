@@ -16,7 +16,7 @@ export const MenuAPI = {
 
 export const gameroomAPI = {};
 
-export const rankingAPI = {
+export const rankAPI = {
   getMafiaRankList: () => api.get(`/ranking/mafia/total`),
   getMafiaRankDetail: (id: number) => api.get(`/ranking/mafia/${id}`),
 
