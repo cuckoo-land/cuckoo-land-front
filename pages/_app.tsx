@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
+  const client = new QueryClient();
   const { pathname } = router;
   const isStartPage = pathname === '/login' || pathname === '/join';
 

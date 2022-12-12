@@ -64,7 +64,7 @@ export default function Lobby() {
 
   // GameRoom Data Fetching
   const fetchGameRoomList = async (pageParam: number) => {
-    const response = await api.get(`/auth/rooms?page=${pageParam}&size=5&sort=id,DESC`);
+    const response = await api.get(`/auth/rooms?page=${pageParam}&size=7&sort=id,DESC`);
     const { content, last: isLast } = response.data;
     return { content, nextPage: pageParam + 1, isLast };
   };
@@ -78,7 +78,7 @@ export default function Lobby() {
     getNextPageParam: (lastPage) => (!lastPage.isLast ? lastPage.nextPage : undefined),
   });
 
-  const { isLoading: isLoadingSearchedRooms } = useQuery(
+  const { data: searchedGameRooms, refetch: searchedGameRoomsRefetch } = useQuery(
     ['gamerooms'],
     () => api.get(`/auth/rooms/search/${serachRoom}`),
     {
@@ -131,6 +131,9 @@ export default function Lobby() {
   const onSearchRoom = () => {
     setIsSearch((props) => !props);
     setIsOpenSearchRoom((props) => !props);
+    setTimeout(() => {
+      searchedGameRoomsRefetch();
+    }, 100);
   };
   const onRefresh = () => {
     setIsSearch(false);
@@ -190,14 +193,19 @@ export default function Lobby() {
             <div
               className="w-full flex flex-col max-h-[65vh] pb-16
            justify-start space-y-3 overflow-y-scroll mt-8 scrollbar-hide">
-              {gameRooms?.pages?.map((page) => (
-                <React.Fragment key={uuid()}>
-                  {page?.content?.map((gameRoom: IGameRoomProps) => (
-                    <GameRoomContainer key={gameRoom.id} {...gameRoom} />
-                  ))}
-                </React.Fragment>
-              ))}
-              {isFetchingNextPage ? <div>Loading...</div> : <div className="bg-slate-200 w-full h-3" ref={ref} />}
+              {!isSearch &&
+                gameRooms?.pages?.map((page) => (
+                  <React.Fragment key={uuid()}>
+                    {page?.content?.map((gameRoom: IGameRoomProps) => (
+                      <GameRoomContainer key={gameRoom.id} {...gameRoom} />
+                    ))}
+                  </React.Fragment>
+                ))}
+              {isSearch &&
+                searchedGameRooms?.data?.map((gameRoom: IGameRoomProps) => (
+                  <GameRoomContainer key={gameRoom.id} {...gameRoom} />
+                ))}
+              {isFetchingNextPage && !isSearch ? <div>Loading...</div> : <div className="w-full h-10" ref={ref} />}
             </div>
           </div>
         </div>
@@ -296,7 +304,8 @@ export default function Lobby() {
                   value={serachRoom}
                   onChange={onChangeSearchRoom}
                   type="text"
-                  placeholder="검색할 키워드를 검색해주세요."
+                  minLength={2}
+                  placeholder="검색할 키워드를 검색해주세요.(두 글자 이상)"
                   className='w-full px-3 py-2 text-sm tracking-tighter text-center placeholder-gray-400 bg-white border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-orange-500 focus:border-orange-500"'
                 />
               </div>
