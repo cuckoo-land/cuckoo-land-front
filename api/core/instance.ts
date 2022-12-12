@@ -32,7 +32,7 @@ api.interceptors.response.use(
   (error) => {
     // 오류 응답을 처리
 
-    if (error.response.data?.success === false) {
+    if (error.response?.data?.success === false) {
       // ClearStorage();
       localStorage.setItem('expiration', 'true');
       // window.location.reload();

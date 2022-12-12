@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useInfiniteQuery } from 'react-query/react';
+import { useInfiniteQuery, useQuery } from 'react-query/react';
 import { useForm } from 'react-hook-form';
+import { v4 as uuid } from 'uuid';
 import Image from 'next/image';
 import Button from '@components/button';
-// import GameRoomContainer from '@components/lobby/gameRoom';
+import GameRoomContainer from '@components/lobby/gameRoom';
 import IconButton from '@components/iconButton';
 import ProfileCard from '@components/lobby/profileCard';
 import Input from '@components/input';
@@ -46,7 +47,7 @@ const GAME_TYPE = [{ value: 'Find the Cuckoo', text: 'Find the Cuckoo' }];
 export default function Lobby() {
   const router = useRouter();
   // State Control
-  const [, setIsSearch] = useState(false);
+  const [isSearch, setIsSearch] = useState(false);
 
   // Modal Control
   const [isOpenCreateRoom, setIsOpenCreateRoom] = useState(false);
@@ -60,22 +61,30 @@ export default function Lobby() {
 
   // intersection-observer
   const { ref, inView } = useInView();
+
   // GameRoom Data Fetching
   const fetchGameRoomList = async (pageParam: number) => {
-    const response = await api.get(`/rooms?&page=${pageParam}&size=10`);
-    const { posts, isLast } = response.data;
-    return { posts, nextPage: pageParam + 1, isLast };
+    const response = await api.get(`/auth/rooms?page=${pageParam}&size=5&sort=id,DESC`);
+    const { content, last: isLast } = response.data;
+    return { content, nextPage: pageParam + 1, isLast };
   };
-  const { fetchNextPage, isFetchingNextPage, refetch } = useInfiniteQuery(
+  const {
+    data: gameRooms,
+    fetchNextPage,
+    isFetchingNextPage,
+    refetch,
+  } = useInfiniteQuery(['gamerooms'], ({ pageParam = 0 }) => fetchGameRoomList(pageParam), {
+    refetchOnWindowFocus: false,
+    getNextPageParam: (lastPage) => (!lastPage.isLast ? lastPage.nextPage : undefined),
+  });
+
+  const { isLoading: isLoadingSearchedRooms } = useQuery(
     ['gamerooms'],
-    ({ pageParam = 0 }) => fetchGameRoomList(pageParam),
+    () => api.get(`/auth/rooms/search/${serachRoom}`),
     {
-      getNextPageParam: (lastPage) => (!lastPage.isLast ? lastPage.nextPage : undefined),
+      enabled: !!isSearch,
     }
   );
-  // const { isLoading: isLoadingSearchedRooms } = useQuery(['gamerooms'], () => api.get(`/rooms/search/${serachRoom}`), {
-  //   enabled: !!isSearch,
-  // });
 
   useEffect(() => {
     if (inView) fetchNextPage();
@@ -91,10 +100,12 @@ export default function Lobby() {
       hostId: 'bird1',
     };
 
-    await api.post('/rooms', dataAddHostId);
-
+    const {
+      data: { id },
+    } = await api.post('/auth/rooms', dataAddHostId);
     setIsOpenCreateRoom((props) => !props);
     reset();
+    router.push(`/gameroom/${id}`);
   };
   const onChangeInviteCode = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInviteCode(e.target.value);
@@ -103,7 +114,7 @@ export default function Lobby() {
     setSearchRoom(e.target.value);
   };
   const onEnterWithInviteCode = async () => {
-    const response = await api.get(`/rooms/code/${inviteCode}`);
+    const response = await api.get(`/auth/rooms/code/${inviteCode}`);
     if (response?.status === 200) {
       router.push(`/gameroom/${response?.data?.id}`);
       return;
@@ -179,11 +190,15 @@ export default function Lobby() {
             <div
               className="w-full flex flex-col max-h-[65vh] pb-16
            justify-start space-y-3 overflow-y-scroll mt-8 scrollbar-hide">
-              {/* {gameRooms?.map((gameRoom: IGameRoomProps) => (
-                <GameRoomContainer key={gameRoom.id} {...gameRoom} />
-              ))} */}
+              {gameRooms?.pages?.map((page) => (
+                <React.Fragment key={uuid()}>
+                  {page?.content?.map((gameRoom: IGameRoomProps) => (
+                    <GameRoomContainer key={gameRoom.id} {...gameRoom} />
+                  ))}
+                </React.Fragment>
+              ))}
+              {isFetchingNextPage ? <div>Loading...</div> : <div className="bg-slate-200 w-full h-3" ref={ref} />}
             </div>
-            {isFetchingNextPage ? <div>Loading...</div> : <div ref={ref} />}
           </div>
         </div>
       </Layout>
