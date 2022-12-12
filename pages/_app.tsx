@@ -1,3 +1,5 @@
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import type { AppProps } from 'next/app';
 import '@styles/globals.css';
 import GlobalStyle from '@styles/GlobalStyles';
@@ -6,6 +8,7 @@ import { useEffect } from 'react';
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
+  const client = new QueryClient();
   const { pathname } = router;
   const isStartPage = pathname === '/login' || pathname === '/join';
 
@@ -22,8 +25,11 @@ export default function App({ Component, pageProps }: AppProps) {
           <track default kind="captions" />
         </audio>
       )}
-      <GlobalStyle />
-      <Component {...pageProps} />
+      <QueryClientProvider client={client}>
+        <GlobalStyle />
+        <Component {...pageProps} />
+        <ReactQueryDevtools />
+      </QueryClientProvider>
     </>
   );
 }

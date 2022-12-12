@@ -125,7 +125,6 @@ export default function Join() {
           text: '다시 시도해주세요.',
           confirmButtonText: '확인',
         });
-        console.dir(response);
       });
   };
 

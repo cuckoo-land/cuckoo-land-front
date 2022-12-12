@@ -56,14 +56,13 @@ export default function Login() {
           router.push('/lobby');
         }
       })
-      .catch(({ response }) => {
+      .catch(() => {
         Swal.fire({
           icon: 'error',
           title: '로그인에 실패했습니다.',
           text: '다시 시도해주세요.',
           confirmButtonText: '확인',
         });
-        console.dir(response);
       });
   };
 
@@ -76,7 +75,6 @@ export default function Login() {
       .guestLogin({ nickname })
       .then((response) => {
         if (response.status === 200) {
-          console.log(response);
           localStorage.setItem('nickname', response.data.nickname);
           localStorage.setItem('roleType', response.data.roleType);
           response.headers.authorization && localStorage.setItem('accessToken', response.headers.authorization);
@@ -84,14 +82,13 @@ export default function Login() {
           router.push('/lobby');
         }
       })
-      .catch(({ response }) => {
+      .catch(() => {
         Swal.fire({
           icon: 'error',
           title: '게스트 로그인에 실패했습니다.',
           text: '다시 시도해주세요.',
           confirmButtonText: '확인',
         });
-        console.dir(response);
       });
   };
 

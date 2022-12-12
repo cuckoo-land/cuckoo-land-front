@@ -24,7 +24,7 @@ export default function AnimateModal({ children, isOpen, setIsOpen, texture = 'w
             role="presentation"
             className={cls(
               `bg-no-repeat bg-cover bg-center p-5 w-[480px] h-[350px]
-              animate-modal_appear`,
+              animate-modal_topdown`,
               texture === 'woody'
                 ? 'bg-woody_modal'
                 : texture === 'dark'
