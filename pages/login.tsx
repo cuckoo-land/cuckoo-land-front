@@ -1,10 +1,12 @@
 import { useRouter } from 'next/router';
 import { FormEvent, useEffect, useRef, useState } from 'react';
 
-import Swal from 'sweetalert2';
-import { handleToast } from '@utils/toast';
 import { authAPI } from 'api';
 import GuestModal from '@components/guestModal';
+
+import Swal from 'sweetalert2';
+import { handleToast } from '@utils/toast';
+import { idRegExp, passwordRegExp } from '@utils/regExp';
 
 export default function Login() {
   const router = useRouter();
@@ -21,9 +23,6 @@ export default function Login() {
       router.push('/lobby');
     }
   }, []);
-
-  const idRegExp = /^[a-zA-Z0-9]{4,16}$/;
-  const passwordRegExp = /^(?=.*[a-z])(?=.*[0-9])[0-9A-Za-z$&+,:;=?@#|'<>.^*()%!-]{8,32}$/;
 
   const signinData = {
     memberId: id,
@@ -100,7 +99,7 @@ export default function Login() {
     <div className="bg-[url('/intro-bgi.gif')] flex flex-col items-center justify-center w-full h-screen">
       <img src="/cuckoo_land_logo.png" alt="logo" className="w-80" />
       <form
-        className="bg-white_modal bg-cover bg-center w-96 p-5 opacity-90 flex flex-col items-center justify-center shadow-lg"
+        className="bg-white_modal bg-cover bg-center w-96 p-5 flex flex-col items-center justify-center shadow-lg"
         onSubmit={(e) => handleLogin(e)}>
         <label className="text-2xl font-bold text-[#573623] mb-2">아이디</label>
         <input
