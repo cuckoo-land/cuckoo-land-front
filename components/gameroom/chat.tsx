@@ -31,6 +31,7 @@ function Chat({ handleSendMSG, messageRef, chatList }) {
                 onClick={handleSendMSG}
               />
             </div>
+            {/* <Input register={messageRef} /> */}
             <input ref={messageRef} />
           </div>
         </div>
