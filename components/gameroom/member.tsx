@@ -1,9 +1,9 @@
 export default function Member() {
   return (
-    <div className="mt-20 h-1/2">
-      <div className="grid grid-cols-4 gap-4 place-items-center h-2/3">
-        {[...new Array(10)].map(() => (
-          <div className="flex items-center justify-center bg-cover bg-woody_rounded_button h-28 w-28 rounded-xl">
+    <div className="w-full mt-20 bg-cover h-1/2 bg-woody_modal">
+      <div className="grid w-full grid-cols-4 gap-4 place-items-center ">
+        {[...new Array(12)].map(() => (
+          <div className="flex items-center justify-center bg-cover bg-white_rounded_button h-28 w-28 rounded-xl">
             <div className="w-20 h-20 bg-cover rounded-full bg-cuckoo_character" />
           </div>
         ))}
