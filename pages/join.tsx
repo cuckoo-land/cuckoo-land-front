@@ -1,9 +1,11 @@
 import { useRouter } from 'next/router';
 import { FormEvent, useEffect, useRef, useState } from 'react';
 
+import { authAPI } from 'api';
+
 import Swal from 'sweetalert2';
 import { handleToast } from '@utils/toast';
-import { authAPI } from 'api';
+import { idRegExp, nicknameRegExp, passwordRegExp } from '@utils/regExp';
 
 export default function Join() {
   const router = useRouter();
@@ -31,12 +33,12 @@ export default function Join() {
       authAPI
         .memberidCheck({ memberId: id })
         .then((response) => {
-          if (response.status === 200) {
+          if (response?.status === 200) {
             setMessage('✅ 사용 가능한 아이디입니다.');
           }
         })
         .catch(({ response }) => {
-          if (!response.data.msg) {
+          if (!response?.data.msg) {
             setMessage('⚠️ 아이디 형식이 올바르지 않습니다.');
           } else {
             setMessage('❌ 이미 사용중인 아이디입니다.');
@@ -71,10 +73,6 @@ export default function Join() {
     password,
   };
 
-  const idRegExp = /^[a-zA-Z0-9]{4,16}$/;
-  const nicknameRegExp = /^[가-힣a-zA-Z0-9]{4,16}$/;
-  const passwordRegExp = /^(?=.*[a-z])(?=.*[0-9])[0-9A-Za-z$&+,:;=?@#|'<>.^*()%!-]{8,32}$/;
-
   const handleValidation = () => {
     if (!idRegExp.test(id)) {
       handleToast('info', '아이디는 4~16자의 영문, 숫자만 사용 가능합니다.');
@@ -83,7 +81,7 @@ export default function Join() {
       return false;
     }
     if (!nicknameRegExp.test(nickname)) {
-      handleToast('info', '닉네임은 2~8자의 한글, 영문, 숫자만 사용 가능합니다.');
+      handleToast('info', '닉네임은 2~16자의 한글, 영문, 숫자만 사용 가능합니다.');
       setMessage('⚠️ 닉네임 형식이 올바르지 않습니다.');
       nicknameRef.current?.focus();
       return false;
@@ -109,7 +107,7 @@ export default function Join() {
     authAPI
       .join(joinData)
       .then((response) => {
-        if (response.status === 201) {
+        if (response.status === 201 || response.status === 200) {
           Swal.fire({
             icon: 'success',
             title: '회원가입 성공!',
@@ -121,15 +119,12 @@ export default function Join() {
         }
       })
       .catch(({ response }) => {
-        if (response.status === 400) {
-          Swal.fire({
-            icon: 'error',
-            title: '회원가입에 실패했습니다.',
-            text: '다시 시도해주세요.',
-            confirmButtonText: '확인',
-          });
-          console.dir(response);
-        }
+        Swal.fire({
+          icon: 'error',
+          title: '회원가입에 실패했습니다.',
+          text: '다시 시도해주세요.',
+          confirmButtonText: '확인',
+        });
       });
   };
 
@@ -137,7 +132,7 @@ export default function Join() {
     <div className="bg-[url('/intro-bgi.gif')] flex flex-col items-center justify-center w-full h-screen">
       <img src="/cuckoo_land_logo_en.png" alt="logo" className="w-80" />
       <form
-        className="bg-white_modal bg-cover bg-center border-2 rounded-3xl p-5 opacity-90 max-w-sm flex flex-col items-center justify-center shadow-lg"
+        className="bg-white_modal bg-cover bg-center border-2 rounded-3xl p-5 max-w-sm flex flex-col items-center justify-center shadow-lg"
         onSubmit={(e) => handleJoin(e)}>
         <label className="text-2xl font-bold text-[#573623] mb-2">아이디</label>
         <input

@@ -2,10 +2,10 @@ import Member from '@components/gameroom/member';
 import Layout from '@components/layout';
 import Button from '@components/button';
 import Chat from '@components/gameroom/chat';
-import CommonModal from '@components/modal';
-import Header from '@components/header';
+// import CommonModal from '@components/modal';
+// import Header from '@components/header';
 import Swal from 'sweetalert2';
-import Image from 'next/image';
+// import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 import { toast, ToastContainer } from 'react-toastify';
@@ -27,7 +27,7 @@ function GameRoom() {
     });
   };
   const handleUpdateSetting = () => {
-    console.log('setting');
+    // console.log('setting');
   };
 
   const handleQuitGameRoom = () => {

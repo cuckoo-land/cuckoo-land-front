@@ -20,7 +20,18 @@ module.exports = {
         cuckoo_character: "url('../public/image/cuckoo_character.png')",
       },
       keyframes: {
-        modal_appear: {
+        loading_spin: {
+          '0%': {
+            transform: 'rotate(0deg)',
+          },
+          '50%': {
+            transform: 'rotate(180deg)',
+          },
+          '100%': {
+            transform: 'rotate(360deg)',
+          },
+        },
+        modal_topdown: {
           '0%': {
             transform: 'translateY(-100%) rotate(10deg)',
           },
@@ -43,7 +54,8 @@ module.exports = {
         },
       },
       animation: {
-        modal_appear: 'modal_appear 1s ease-in',
+        modal_topdown: 'modal_topdown 1s ease-in',
+        loading_spin: 'loading_spin infinite linear',
         menu_apper: 'menu_apper 0.3s ease-in-out',
       },
     },

@@ -12,7 +12,7 @@ interface GuestModalProps {
 export default function GuestModal({ title, content, confirmText, cancelText, onConfirm, onCancel }: GuestModalProps) {
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
-      <div className="animate-modal_appear bg-white_modal bg-cover bg-center border-2 rounded-3xl p-5 opacity-90 max-w-sm flex flex-col items-center justify-center">
+      <div className="animate-modal_appear bg-white_modal bg-cover bg-center border-2 rounded-3xl p-5 max-w-sm flex flex-col items-center justify-center">
         <h1 className="text-2xl font-bold text-[#573623] mb-2">{title}</h1>
         {content}
         <div className="flex justify-around w-full mt-4">
