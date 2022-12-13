@@ -7,6 +7,8 @@ type RankListProps = {
 };
 
 interface IRankList {
+  memberId: string;
+  memo: string;
   nickname: string;
   tier: number;
   total: number;
@@ -31,14 +33,26 @@ export default function RankList({ gameType }: RankListProps) {
       {gameType === 'mafia' && (
         <>
           {mafiaRankList?.map((data, index) => (
-            <RankItem key={data.nickname} rankingNumber={index + 1} userData={data} />
+            <RankItem
+              key={data.nickname}
+              rankingNumber={index + 1}
+              userData={data}
+              isDetail={false}
+              gameType={gameType}
+            />
           ))}
         </>
       )}
       {gameType === 'majority' && (
         <>
           {majorityRankList?.map((data, index) => (
-            <RankItem key={data.nickname} rankingNumber={index + 1} userData={data} />
+            <RankItem
+              key={data.nickname}
+              rankingNumber={index + 1}
+              userData={data}
+              isDetail={false}
+              gameType={gameType}
+            />
           ))}
         </>
       )}

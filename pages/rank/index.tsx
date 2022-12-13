@@ -5,7 +5,7 @@ import Header from '@components/header';
 import IconButton from '@components/iconButton';
 import RankList from '@components/rank/rankList';
 
-export default function Rank() {
+export default function RankingPage() {
   const [gameType, setGameType] = useState('mafia');
 
   const handleGameType = (type: string) => {
@@ -13,7 +13,7 @@ export default function Rank() {
   };
 
   return (
-    <div className="w-full min-w-md mx-auto max-h-screen overflow-hidden flex justify-center bg-[url('/intro-bgi.gif')] bg-cover">
+    <div className="w-full h-full min-w-md mx-auto overflow-hidden flex justify-center bg-[url('/intro-bgi.gif')] bg-cover">
       <Header isRankPage />
       <div className="w-full flex justify-center flex-col h-fit mt-20 relative">
         <div className="flex flex-col justify-center items-center">

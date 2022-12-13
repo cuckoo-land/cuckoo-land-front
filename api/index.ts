@@ -18,8 +18,8 @@ export const gameroomAPI = {};
 
 export const rankAPI = {
   getMafiaRankList: () => api.get(`/ranking/mafia/total`),
-  getMafiaRankDetail: (id: number) => api.get(`/ranking/mafia/${id}`),
+  getMafiaRankDetail: (memberId: string | string[] | undefined) => api.get(`/ranking/mafia/${memberId}`),
 
   getMajorityRankList: () => api.get(`/ranking/majority/total`),
-  getMajorityRankDetail: (id: number) => api.get(`/ranking/majority/${id}`),
+  getMajorityRankDetail: (memberId: string | string[] | undefined) => api.get(`/ranking/majority/${memberId}`),
 };
