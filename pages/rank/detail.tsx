@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 
@@ -59,34 +60,78 @@ export default function MafiaDetail() {
               </div>
             </div>
             {gameType === 'mafia' && (
-              <div className="p-4">
+              <div className="p-2">
                 <h2 className="p-1 bg-dark_banner bg-no-repeat bg-cover bg-center text-center text-lg text-white font-bold">
                   역할별 승리 정보
                 </h2>
-                <ul className="pt-4 flex flex-col gap-4">
-                  <li className="text-md text-white ">
-                    마피아 승리{' '}
-                    <span className="bg-dark_button bg-no-repeat bg-cover bg-center px-3">
-                      {userData?.winNum.indexOf('0')}
-                    </span>
+                <ul className="pt-2 flex flex-col gap-2 text-white">
+                  <li>
+                    <div className="flex gap-2">
+                      <Image
+                        className="rounded-full"
+                        src="/image/bird/cuckoo.jpeg"
+                        alt="mafia"
+                        width={30}
+                        height={30}
+                      />
+                      <div className="pt-2">
+                        <span>마피아 버드 승리 </span>
+                        <span className="bg-dark_button bg-no-repeat bg-cover bg-center px-3">
+                          {userData?.winNum?.indexOf('0')}
+                        </span>
+                      </div>
+                    </div>
                   </li>
-                  <li className="text-md text-white">
-                    시민 승리{' '}
-                    <span className="bg-dark_button bg-no-repeat bg-cover bg-center px-3">
-                      {userData?.winNum.indexOf('1')}
-                    </span>
+                  <li>
+                    <div className="flex gap-2">
+                      <Image
+                        className="rounded-full"
+                        src="/image/bird/citizen_bird.jpeg"
+                        alt="mafia"
+                        width={30}
+                        height={30}
+                      />
+                      <div className="pt-2">
+                        <span>시민 버드 승리 </span>
+                        <span className="bg-dark_button bg-no-repeat bg-cover bg-center px-3">
+                          {userData?.winNum?.indexOf('1')}
+                        </span>
+                      </div>
+                    </div>
                   </li>
-                  <li className="text-md text-white">
-                    경찰 승리
-                    <span className="bg-dark_button bg-no-repeat bg-cover bg-center px-3">
-                      {userData?.winNum.indexOf('2')}
-                    </span>
+                  <li>
+                    <div className="flex gap-2">
+                      <Image
+                        className="rounded-full"
+                        src="/image/bird/police_bird.jpeg"
+                        alt="mafia"
+                        width={30}
+                        height={30}
+                      />
+                      <div className="pt-2">
+                        <span>경찰 버드 승리 </span>
+                        <span className="bg-dark_button bg-no-repeat bg-cover bg-center px-3">
+                          {userData?.winNum?.indexOf('2')}
+                        </span>
+                      </div>
+                    </div>
                   </li>
-                  <li className="text-md text-white">
-                    의사 승리
-                    <span className="bg-dark_button bg-no-repeat bg-cover bg-center px-3">
-                      {userData?.winNum.indexOf('3')}
-                    </span>
+                  <li>
+                    <div className="flex gap-2">
+                      <Image
+                        className="rounded-full"
+                        src="/image/bird/doctor_bird.jpeg"
+                        alt="mafia"
+                        width={30}
+                        height={30}
+                      />
+                      <div className="pt-2">
+                        <span>의사 버드 승리 </span>
+                        <span className="bg-dark_button bg-no-repeat bg-cover bg-center px-3">
+                          {userData?.winNum?.indexOf('3')}
+                        </span>
+                      </div>
+                    </div>
                   </li>
                 </ul>
               </div>
@@ -98,16 +143,16 @@ export default function MafiaDetail() {
                 </h2>
                 <ul className="pt-4 flex flex-col gap-4">
                   <li className="text-md text-yellow-300">
-                    트렌디 버드{' '}
-                    <span className="bg-dark_button bg-no-repeat bg-cover bg-center px-3">
-                      {userData?.winNum.indexOf('0')}회
+                    <span className="font-bold">트렌디 버드 </span>
+                    <span className="bg-dark_button bg-no-repeat bg-cover bg-center px-3 text-white">
+                      {userData?.winNum?.indexOf('0')}회
                     </span>
                     <p className="pt-2">가장 많은 다수결 승리 항목을 선택함</p>
                   </li>
                   <li className="text-md text-red-300">
-                    마이웨이 버드{' '}
-                    <span className="bg-dark_button bg-no-repeat bg-cover bg-center px-3">
-                      {userData?.winNum.indexOf('1')}회
+                    <span className="font-bold">마이웨이 버드 </span>
+                    <span className="bg-dark_button bg-no-repeat bg-cover bg-center px-3 text-white">
+                      {userData?.winNum?.indexOf('1')}회
                     </span>
                     <p className="pt-2">가장 많은 다수결 패배 항목을 선택함</p>
                   </li>
