@@ -8,14 +8,28 @@ export function LogoutModal() {
 
   const handleLogout = () => {
     if (roleType === 'GUEST') {
-      authAPI.guestLogout();
+      authAPI
+        .guestLogout()
+        .then((response) => {
+          if (response.status === 200) {
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('refreshToken');
+            localStorage.removeItem('nickname');
+            localStorage.removeItem('roleType');
+            handleToast('success', '로그아웃 되었습니다.');
+            router.push('/login');
+          }
+        })
+        .catch(() => {
+          handleToast('error', '로그아웃에 실패했습니다.');
+        });
+    } else {
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('roleType');
+      handleToast('success', '로그아웃 되었습니다.');
+      router.push('/login');
     }
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
-    localStorage.removeItem('nickname');
-    localStorage.removeItem('roleType');
-    handleToast('success', '로그아웃 되었습니다.');
-    router.push('/login');
   };
 
   return (
