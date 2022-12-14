@@ -1,17 +1,13 @@
 interface IResponse {
   status: number;
-  data: IData;
-  headers: IHeaders;
-}
-
-interface IData {
-  nickname: string;
-  roleType: string;
-}
-
-interface IHeaders {
-  authorization: string;
-  refreshtoken: string;
+  data: {
+    nickname: string;
+    roleType: string;
+  };
+  headers: {
+    authorization: string;
+    refreshtoken: string;
+  };
 }
 
 export interface IAuthAPI {
