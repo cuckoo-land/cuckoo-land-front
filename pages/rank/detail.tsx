@@ -1,22 +1,10 @@
-import Header from '@components/header';
-import RankItem from '@components/rank/rankItem';
-import { rankAPI } from 'api';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 
-type RankCardProps = {
-  rankingNumber: number;
-  userData: {
-    memberId: string;
-    memo: string;
-    nickname: string;
-    tier: number;
-    total: number;
-    winNum: string;
-    winScore: number;
-  };
-};
+import { rankAPI } from 'api';
+
+import Header from '@components/header';
+import RankItem from '@components/rank/rankItem';
 
 interface IRankDetail {
   memberId: string;
@@ -48,7 +36,7 @@ export default function MafiaDetail() {
   if (gameType === 'mafia') userData = mafiaData?.data;
   if (gameType === 'majority') userData = majorityData?.data;
 
-  const winCount = userData?.winNum.split('').reduce((acc, cur) => {
+  const winCount = userData?.winNum?.split('').reduce((acc, cur) => {
     if (Number(cur) > 0) {
       return acc + Number(cur);
     }
@@ -57,7 +45,6 @@ export default function MafiaDetail() {
   const gameCount = userData?.total;
   const winRate = Math.round((winCount / gameCount) * 100);
 
-  console.log(userData);
   return (
     <div className="bg-[url('/intro-bgi.gif')] flex flex-col items-center justify-center w-full h-screen">
       <Header isRankPage />
@@ -71,37 +58,62 @@ export default function MafiaDetail() {
                 {userData?.total}전 {winCount}승 <span className="text-rose-300">({winRate}%)</span>
               </div>
             </div>
-            <div className="p-4">
-              <h2 className="p-1 bg-dark_banner bg-no-repeat bg-cover bg-center text-center text-lg text-white font-bold">
-                역할별 승리 정보
-              </h2>
-              <ul className="pt-4 flex flex-col gap-4">
-                <li className="text-md text-white ">
-                  마피아 승리{' '}
-                  <span className="bg-dark_button bg-no-repeat bg-cover bg-center px-3">
-                    {userData?.winNum.indexOf('0')}
-                  </span>
-                </li>
-                <li className="text-md text-white">
-                  시민 승리{' '}
-                  <span className="bg-dark_button bg-no-repeat bg-cover bg-center px-3">
-                    {userData?.winNum.indexOf('1')}
-                  </span>
-                </li>
-                <li className="text-md text-white">
-                  경찰 승리
-                  <span className="bg-dark_button bg-no-repeat bg-cover bg-center px-3">
-                    {userData?.winNum.indexOf('2')}
-                  </span>
-                </li>
-                <li className="text-md text-white">
-                  의사 승리
-                  <span className="bg-dark_button bg-no-repeat bg-cover bg-center px-3">
-                    {userData?.winNum.indexOf('3')}
-                  </span>
-                </li>
-              </ul>
-            </div>
+            {gameType === 'mafia' && (
+              <div className="p-4">
+                <h2 className="p-1 bg-dark_banner bg-no-repeat bg-cover bg-center text-center text-lg text-white font-bold">
+                  역할별 승리 정보
+                </h2>
+                <ul className="pt-4 flex flex-col gap-4">
+                  <li className="text-md text-white ">
+                    마피아 승리{' '}
+                    <span className="bg-dark_button bg-no-repeat bg-cover bg-center px-3">
+                      {userData?.winNum.indexOf('0')}
+                    </span>
+                  </li>
+                  <li className="text-md text-white">
+                    시민 승리{' '}
+                    <span className="bg-dark_button bg-no-repeat bg-cover bg-center px-3">
+                      {userData?.winNum.indexOf('1')}
+                    </span>
+                  </li>
+                  <li className="text-md text-white">
+                    경찰 승리
+                    <span className="bg-dark_button bg-no-repeat bg-cover bg-center px-3">
+                      {userData?.winNum.indexOf('2')}
+                    </span>
+                  </li>
+                  <li className="text-md text-white">
+                    의사 승리
+                    <span className="bg-dark_button bg-no-repeat bg-cover bg-center px-3">
+                      {userData?.winNum.indexOf('3')}
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            )}
+            {gameType === 'majority' && (
+              <div className="p-4">
+                <h2 className="p-1 bg-dark_banner bg-no-repeat bg-cover bg-center text-center text-lg text-white font-bold">
+                  칭호 획득 정보
+                </h2>
+                <ul className="pt-4 flex flex-col gap-4">
+                  <li className="text-md text-yellow-300">
+                    트렌디 버드{' '}
+                    <span className="bg-dark_button bg-no-repeat bg-cover bg-center px-3">
+                      {userData?.winNum.indexOf('0')}회
+                    </span>
+                    <p className="pt-2">가장 많은 다수결 승리 항목을 선택함</p>
+                  </li>
+                  <li className="text-md text-red-300">
+                    마이웨이 버드{' '}
+                    <span className="bg-dark_button bg-no-repeat bg-cover bg-center px-3">
+                      {userData?.winNum.indexOf('1')}회
+                    </span>
+                    <p className="pt-2">가장 많은 다수결 패배 항목을 선택함</p>
+                  </li>
+                </ul>
+              </div>
+            )}
           </div>
         </article>
       </section>

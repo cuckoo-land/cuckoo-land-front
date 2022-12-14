@@ -29,7 +29,7 @@ export default function RankItem({ rankingNumber, userData, isDetail, gameType }
     );
   };
 
-  const winCount = userData?.winNum.split('').reduce((acc, cur) => {
+  const winCount = userData?.winNum?.split('').reduce((acc, cur) => {
     if (Number(cur) > 0) {
       return acc + Number(cur);
     }
