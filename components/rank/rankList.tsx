@@ -23,13 +23,10 @@ export default function RankList({ gameType }: RankListProps) {
   const mafiaRankList: IRankList[] = mafiaData?.data;
   const majorityRankList: IRankList[] = majorityData?.data;
 
-  console.log(mafiaRankList);
-  console.log(majorityRankList);
-
   return (
     <div
       className="w-full flex flex-col max-h-[100vh] pb-16
-           justify-start space-y-3 overflow-y-scroll mt-8 scrollbar-hide">
+           justify-start space-y-3 overflow-y-scroll scrollbar-hide">
       {gameType === 'mafia' && (
         <>
           {mafiaRankList?.map((data, index) => (
