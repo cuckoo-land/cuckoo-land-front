@@ -4,10 +4,9 @@ import { useRouter } from 'next/router';
 
 export function LogoutModal() {
   const router = useRouter();
-  const roleType = localStorage.getItem('roleType');
 
   const handleLogout = () => {
-    if (roleType === 'GUEST') {
+    if (localStorage.getItem('roleType') === 'GUEST') {
       authAPI
         .guestLogout()
         .then((response) => {
