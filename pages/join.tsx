@@ -31,7 +31,7 @@ export default function Join() {
     if (!id.length) setMessage('⚠️ 4자 이상의 아이디를 입력해주세요.');
     if (id.length >= 4) {
       authAPI
-        .memberidCheck({ memberId: id })
+        .memberidCheck(id)
         .then((response) => {
           if (response?.status === 200) {
             setMessage('✅ 사용 가능한 아이디입니다.');
@@ -51,7 +51,7 @@ export default function Join() {
     if (!nickname.length) setMessage('⚠️ 2자 이상의 닉네임을 입력해주세요.');
     if (nickname.length >= 2) {
       authAPI
-        .nicknameCheck({ nickname })
+        .nicknameCheck(nickname)
         .then((response) => {
           if (response.status === 200) {
             setMessage('✅ 사용 가능한 닉네임입니다.');
@@ -66,12 +66,6 @@ export default function Join() {
         });
     }
   }, [nickname]);
-
-  const joinData = {
-    memberId: id,
-    nickname,
-    password,
-  };
 
   const handleValidation = () => {
     if (!idRegExp.test(id)) {
@@ -105,7 +99,7 @@ export default function Join() {
     e.preventDefault();
     if (!handleValidation()) return;
     authAPI
-      .join(joinData)
+      .join(id, nickname, password)
       .then((response) => {
         if (response.status === 201 || response.status === 200) {
           Swal.fire({
@@ -118,7 +112,7 @@ export default function Join() {
           });
         }
       })
-      .catch(({ response }) => {
+      .catch(() => {
         Swal.fire({
           icon: 'error',
           title: '회원가입에 실패했습니다.',
