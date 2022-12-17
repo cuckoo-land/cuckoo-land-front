@@ -2,19 +2,14 @@
 // import AnimateModal from './animateModal';
 
 export default function Loading() {
-  return (
-    <div />
-    // <AnimateModal
-    //   setIsOpen={() => {
-    //     setTimeout;
-    //   }}
-    //   isOpen={true}>
-    //   <div className="flex flex-col justify-center items-center h-full">
-    //     <div className=" animate-spin w-30 h-30 mb-5">
-    //       <Image src="/image/cuckoo_character.png" height={130} width={130} />
-    //     </div>
-    //     <div className="font-bold text-4xl ml-10 text-white tracking-wider">Loading...</div>
-    //   </div>
-    // </AnimateModal>
-  );
+  // return (
+  //   <AnimateModal setIsOpen={() => {}} isOpen>
+  //     <div className="flex flex-col items-center justify-center h-full">
+  //       <div className="mb-5 animate-spin w-30 h-30">
+  //         <Image src="/image/cuckoo_character.png" height={130} width={130} />
+  //       </div>
+  //       <div className="ml-10 text-4xl font-bold tracking-wider text-white">Loading...</div>
+  //     </div>
+  //   </AnimateModal>
+  // );
 }
