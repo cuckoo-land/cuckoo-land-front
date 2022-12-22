@@ -1,12 +1,12 @@
+import { IAuthAPI } from 'types/authType';
 import { api } from './core/instance';
 
-export const authAPI = {
-  join: (data: any) => api.post('/join', data),
-  memberidCheck: (data: any) => api.post('/join/idcheck', data),
-  nicknameCheck: (data: any) => api.post('/join/nickcheck', data),
-
-  login: (data: any) => api.post('/login', data),
-  guestLogin: (data: any) => api.post('/guest/login', data),
+export const authAPI: IAuthAPI = {
+  join: (memberId, nickname, password) => api.post('/join', { memberId, nickname, password }),
+  memberidCheck: (memberId) => api.post('/join/idcheck', { memberId }),
+  nicknameCheck: (nickname) => api.post('/join/nickcheck', { nickname }),
+  login: (memberId, password) => api.post('/login', { memberId, password }),
+  guestLogin: (nickname) => api.post('/guest/login', { nickname }),
   guestLogout: () => api.delete('/guest/out'),
 };
 

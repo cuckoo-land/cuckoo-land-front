@@ -43,7 +43,7 @@ function GameRoom() {
   };
 
   return (
-    <Layout title="Gameroom" seoTitle="Gameroom">
+    <Layout seoTitle="Gameroom">
       <ToastContainer />
       <Member />
       <div className="flex justify-between mx-10 my-2">
