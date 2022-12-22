@@ -1,9 +1,9 @@
 import type {} from 'next/';
 import { cls } from '@utils/cls';
-import { FriendModal } from './menumodal/Friendmodal';
-import { LogoutModal } from './menumodal/Logoutmodal';
-import { Settingmodal } from './menumodal/Settingmodal';
-import { Alertmodal } from './menumodal/Alertmodal';
+import FriendModal from './menumodal/Friendmodal';
+import LogoutModal from './menumodal/Logoutmodal';
+import Settingmodal from './menumodal/Settingmodal';
+import Alertmodal from './menumodal/Alertmodal';
 
 interface IProps {
   setMenu: (a: boolean) => void;

@@ -1,6 +1,6 @@
-import { FriendList } from '../Friendlist';
+import FriendList from '../Friendlist';
 
-export function FriendModal() {
+export default function FriendModal() {
   return (
     <>
       <input type="checkbox" id="my-modal-4" className="modal-toggle" />

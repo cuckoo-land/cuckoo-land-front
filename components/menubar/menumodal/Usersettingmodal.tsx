@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Swal from 'sweetalert2';
 
-export function Usersettingmodal() {
+export default function Usersettingmodal() {
   const [attachment, setAttachment] = useState<string>();
   const [, setFileZero] = useState<File>();
 
@@ -57,6 +57,10 @@ export function Usersettingmodal() {
         text: '원하시는 닉네임을 입력해주세요',
         input: 'text',
         inputPlaceholder: '닉네임을 입력..',
+        customClass: {
+          // popup: 'btn bg-woody_banner bg-cover bg-no-repeat',
+          container: 'btn bg-woody_banner bg-cover bg-no-repeat',
+        },
       });
 
       // 이후 처리되는 내용.

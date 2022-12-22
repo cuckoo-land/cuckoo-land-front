@@ -14,7 +14,7 @@ api.interceptors.request.use(
     }
     config.headers = {
       Authorization: `Bearer ${accessToken}`,
-      'Refresh-Token': `${refreshToken}`,
+      RefreshToken: `${refreshToken}`,
     };
 
     return config;

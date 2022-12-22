@@ -11,7 +11,11 @@ export const authAPI = {
 };
 
 export const MenuAPI = {
-  getUserInfo: () => api.post(``),
+  getUserInfo: (id: string) => api.post(`/memberinfo/${id}`),
+  changeUsername: (data: { nickname: string }) => api.put(`auth/updatenickname`, data),
+  getFriendList: () => api.get(`auth/friend`),
+  addFriend: (data: { friendId: string }) => api.post(`auth/friend`, data),
+  deleteFriend: (friendId: string) => api.delete(`auth/friend/${friendId}`),
 };
 
 export const gameroomAPI = {};

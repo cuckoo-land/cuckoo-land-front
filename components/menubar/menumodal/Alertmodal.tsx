@@ -1,4 +1,4 @@
-export function Alertmodal() {
+export default function Alertmodal() {
   return (
     <>
       <input type="checkbox" id="alertmodal" className="modal-toggle" />

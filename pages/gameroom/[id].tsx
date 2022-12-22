@@ -7,7 +7,7 @@ import Chat from '@components/gameroom/chat';
 import Swal from 'sweetalert2';
 // import Image from 'next/image';
 import { useRouter } from 'next/router';
-
+// import * as stompjs from '@stomp/stompjs';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

@@ -1,6 +1,6 @@
 import { handleToast } from '@utils/toast';
 
-export function LogoutModal() {
+export default function LogoutModal() {
   const logout = () => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');

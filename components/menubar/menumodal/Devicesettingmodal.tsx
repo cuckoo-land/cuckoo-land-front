@@ -5,7 +5,7 @@ let myPeerConnection: RTCPeerConnection;
 // let roomName: string;
 let muted = false;
 let carmeraonoff = false;
-export function Devicesettingmodal() {
+export default function Devicesettingmodal() {
   const myFace = useRef<HTMLVideoElement>(null);
   const selectVideoRef = useRef<HTMLSelectElement>(null);
   const selectAudioRef = useRef<HTMLSelectElement>(null);

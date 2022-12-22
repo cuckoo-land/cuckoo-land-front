@@ -1,4 +1,4 @@
-export function FriendList() {
+export default function FriendList() {
   return (
     <div className="overflow-x-auto w-full">
       <table className="table w-full">
