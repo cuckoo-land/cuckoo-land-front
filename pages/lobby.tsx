@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useInfiniteQuery, useQuery } from 'react-query/react';
+import { useQuery } from 'react-query/react';
 import { useForm } from 'react-hook-form';
 import { v4 as uuid } from 'uuid';
 import Image from 'next/image';
@@ -15,6 +15,7 @@ import { api } from 'api/core/instance';
 import { useInView } from 'react-intersection-observer';
 import { useRouter } from 'next/router';
 import Swal from 'sweetalert2';
+import useGetGameRooms from '@hooks/useGetGameRooms';
 
 interface ICreateRoomRequest {
   title: string;
@@ -23,11 +24,9 @@ interface ICreateRoomRequest {
   maximum: number;
   visibility: boolean;
 }
-
 interface ICreateRoomRequestAddUser extends ICreateRoomRequest {
   hostId: string;
 }
-
 export interface IGameRoomProps {
   code: string;
   hostId: string;
@@ -42,7 +41,10 @@ export interface IGameRoomProps {
 
 // CONSTANT
 const SELECT_PEOPLE = Array.from({ length: 6 }, (_, k) => ({ value: k + 5, text: `${k + 5}명` }));
-const GAME_TYPE = [{ value: 'Find the Cuckoo', text: 'Find the Cuckoo' }];
+const GAME_TYPE = [
+  { value: 0, text: 'Find the Cuckoo' },
+  { value: 1, text: "Cuckoo's pick" },
+];
 
 export default function Lobby() {
   const router = useRouter();
@@ -63,21 +65,7 @@ export default function Lobby() {
   const { ref, inView } = useInView();
 
   // GameRoom Data Fetching
-  const fetchGameRoomList = async (pageParam: number) => {
-    const response = await api.get(`/auth/rooms?page=${pageParam}&size=7&sort=id,DESC`);
-    const { content, last: isLast } = response.data;
-    return { content, nextPage: pageParam + 1, isLast };
-  };
-  const {
-    data: gameRooms,
-    fetchNextPage,
-    isFetchingNextPage,
-    refetch,
-  } = useInfiniteQuery(['gamerooms'], ({ pageParam = 0 }) => fetchGameRoomList(pageParam), {
-    refetchOnWindowFocus: false,
-    getNextPageParam: (lastPage) => (!lastPage.isLast ? lastPage.nextPage : undefined),
-  });
-
+  const { gameRooms, fetchNextPage, isFetchingNextPage, refetch } = useGetGameRooms();
   const { data: searchedGameRooms, refetch: searchedGameRoomsRefetch } = useQuery(
     ['gamerooms'],
     () => api.get(`/auth/rooms/search/${serachRoom}`),
@@ -96,7 +84,7 @@ export default function Lobby() {
       ...data,
       visibility: data?.password?.length === 0,
       maximum: Number(data.maximum),
-      type: String(data.type) === 'Find the Cuckoo' ? 0 : 1,
+      type: Number(data.type),
       hostId: 'bird1',
     };
 

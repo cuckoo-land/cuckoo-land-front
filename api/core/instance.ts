@@ -9,6 +9,7 @@ api.interceptors.request.use(
     const refreshToken = localStorage.getItem('refreshToken');
     const preaccessToken = localStorage.getItem('accessToken');
     const accessToken = preaccessToken?.split(' ')[1];
+
     if (!refreshToken) {
       return config;
     }
