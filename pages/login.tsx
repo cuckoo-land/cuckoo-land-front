@@ -24,11 +24,6 @@ export default function Login() {
     }
   }, []);
 
-  const signinData = {
-    memberId: id,
-    password,
-  };
-
   const handleValidation = () => {
     if (!idRegExp.test(id)) {
       handleToast('error', '아이디를 확인해주세요!');
@@ -47,7 +42,7 @@ export default function Login() {
     e.preventDefault();
     if (!handleValidation()) return;
     authAPI
-      .login(signinData)
+      .login(id, password)
       .then((response) => {
         if (response.status === 200) {
           localStorage.setItem('roleType', response.data.roleType);
@@ -72,7 +67,7 @@ export default function Login() {
 
   const handleGuestLogin = () => {
     authAPI
-      .guestLogin({ nickname })
+      .guestLogin(nickname)
       .then((response) => {
         if (response.status === 200) {
           localStorage.setItem('nickname', response.data.nickname);

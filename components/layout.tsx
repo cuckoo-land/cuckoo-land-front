@@ -9,9 +9,10 @@ interface LayoutProps {
   // hasTabBar?: boolean;
   children: React.ReactNode;
   seoTitle?: string;
+  isInGame?: boolean;
 }
 
-export default function Layout({ children, seoTitle }: LayoutProps) {
+export default function Layout({ children, seoTitle, isInGame }: LayoutProps) {
   // const router = useRouter();
   // const onClick = () => {
   //   router.back();
@@ -22,10 +23,18 @@ export default function Layout({ children, seoTitle }: LayoutProps) {
         <title>{seoTitle} | 쿠쿠랜드</title>
       </Head>
 
-      <div className="w-full flex overflow-hidden items-center justify-center bg-[url('/intro-bgi.gif')] bg-cover">
-        <Header />
-        <div className="w-[640px] h-screen">{children}</div>
-      </div>
+      {!isInGame && (
+        <div className="w-full flex overflow-hidden items-center justify-center bg-[url('/intro-bgi.gif')] bg-cover">
+          <Header />
+          <div className="w-[640px] h-screen">{children}</div>
+        </div>
+      )}
+
+      {isInGame && (
+        <div className="w-full flex overflow-hidden items-center justify-center bg-[url('/majority_bgi.gif')] bg-cover">
+          <div className="w-[640px] h-screen">{children}</div>
+        </div>
+      )}
     </div>
   );
 }
