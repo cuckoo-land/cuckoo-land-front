@@ -43,7 +43,7 @@ export interface IGameRoomProps {
 const SELECT_PEOPLE = Array.from({ length: 6 }, (_, k) => ({ value: k + 5, text: `${k + 5}명` }));
 const GAME_TYPE = [
   { value: 0, text: 'Find the Cuckoo' },
-  { value: 1, text: "Cuckoo's pick" },
+  { value: 1, text: "Cuckoo's Pick" },
 ];
 
 export default function Lobby() {
@@ -82,6 +82,7 @@ export default function Lobby() {
   const onValid = async (data: ICreateRoomRequest) => {
     const dataAddHostId: ICreateRoomRequestAddUser = {
       ...data,
+
       visibility: data?.password?.length === 0,
       maximum: Number(data.maximum),
       type: Number(data.type),
