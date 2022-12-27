@@ -20,7 +20,7 @@ import useGetGameRooms from '@hooks/useGetGameRooms';
 interface ICreateRoomRequest {
   title: string;
   password?: string;
-  type: number;
+  type: string;
   maximum: number;
   visibility: boolean;
 }
@@ -85,7 +85,7 @@ export default function Lobby() {
 
       visibility: data?.password?.length === 0,
       maximum: Number(data.maximum),
-      type: Number(data.type),
+      type: data.type,
       hostId: 'bird1',
     };
 
@@ -94,7 +94,8 @@ export default function Lobby() {
     } = await api.post('/auth/rooms', dataAddHostId);
     setIsOpenCreateRoom((props) => !props);
     reset();
-    router.push(`/gameroom/${id}`);
+    if (data?.type === '1') router.push(`/majority/${id}`);
+    if (data?.type === '0') router.push(`/gameroom/${id}`);
   };
   const onChangeInviteCode = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInviteCode(e.target.value);

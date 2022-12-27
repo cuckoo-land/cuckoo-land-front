@@ -23,7 +23,8 @@ export default function GameRoomContainer({ ...room }: IGameRoomProps) {
       setIsOpen((props) => !props);
       return;
     }
-    router.push(`/gameroom/${id}`);
+    if (type === 'MAJORITY') router.push(`/majority/${id}`);
+    if (type === 'MAFIA') router.push(`/gameroom/${id}`);
   };
   const onValid = async ({ password }: IPasswordSubmit) => {
     const response = await api.post('/rooms/pwcheck', { password, roomId: id });
