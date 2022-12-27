@@ -47,7 +47,7 @@ export default function Header({ isRankPage }: HeaderProps = {}) {
               </svg>
             </IconButton>
           )}
-          <IconButton onClick={() => console.log('hi')}>
+          <IconButton onClick={() => setMenu(!openMenu)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

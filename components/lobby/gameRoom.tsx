@@ -23,7 +23,8 @@ export default function GameRoomContainer({ ...room }: IGameRoomProps) {
       setIsOpen((props) => !props);
       return;
     }
-    router.push(`/gameroom/${id}`);
+    if (type === 'MAJORITY') router.push(`/majority/${id}`);
+    if (type === 'MAFIA') router.push(`/gameroom/${id}`);
   };
   const onValid = async ({ password }: IPasswordSubmit) => {
     const response = await api.post('/rooms/pwcheck', { password, roomId: id });
@@ -66,7 +67,9 @@ export default function GameRoomContainer({ ...room }: IGameRoomProps) {
           </div>
           <div className="px-5 py-3">
             <div className="flex justify-between items-center">
-              <div className="font-semibold text-sm text-gray-200">{type === 'MAFIA' ? 'Find the Cuckoo' : ''}</div>
+              <div className="font-semibold text-sm text-gray-200">
+                {type === 'MAFIA' ? 'Find the Cuckoo' : "Cuckoo's Pick"}
+              </div>
               <div className="text-sm text-white">{`(${numOfPeople} / ${maximum}명)`}</div>
             </div>
           </div>
@@ -89,7 +92,7 @@ export default function GameRoomContainer({ ...room }: IGameRoomProps) {
                 <Button text="취소" onClick={() => setIsOpen((props) => !props)} />
               </div>
               <div>
-                <Button text="생성" type="submit" />
+                <Button text="입장" type="submit" />
               </div>
             </div>
           </form>
